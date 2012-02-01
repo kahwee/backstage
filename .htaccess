@@ -2,6 +2,6 @@
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ index-local-zz.php [QSA,L]
-    DirectoryIndex index-local-zz.php index.html site-down.html
+    RewriteRule ^(.*)$ index.php [QSA,L]
+    DirectoryIndex index.php index.html site-down.html
 </IfModule>
