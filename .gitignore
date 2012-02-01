@@ -71,4 +71,4 @@ assets/*
 protected/runtime/*
 protected/config/main.local.php
 error.log
-
+/.htaccess
