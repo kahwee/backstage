@@ -7,7 +7,7 @@
  * property or method in class "Article".
  *
  * Columns in table "article" available as properties of the model,
- * and there are no model relations.
+ * followed by relations of table "article" available as properties of the model.
  *
  * @property string $id
  * @property string $name
@@ -17,6 +17,9 @@
  * @property string $update_at
  * @property string $update_by
  *
+ * @property User $updateBy
+ * @property User $createBy
+ * @property ArticleTag[] $articleTags
  */
 abstract class BaseArticle extends GxActiveRecord {
 
@@ -49,6 +52,9 @@ abstract class BaseArticle extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
+			'createBy' => array(self::BELONGS_TO, 'User', 'create_by'),
+			'articleTags' => array(self::HAS_MANY, 'ArticleTag', 'article_id'),
 		);
 	}
 
@@ -63,9 +69,12 @@ abstract class BaseArticle extends GxActiveRecord {
 			'name' => Yii::t('app', 'Name'),
 			'content' => Yii::t('app', 'Content'),
 			'create_at' => Yii::t('app', 'Create At'),
-			'create_by' => Yii::t('app', 'Create By'),
+			'create_by' => null,
 			'update_at' => Yii::t('app', 'Update At'),
-			'update_by' => Yii::t('app', 'Update By'),
+			'update_by' => null,
+			'updateBy' => null,
+			'createBy' => null,
+			'articleTags' => null,
 		);
 	}
 
@@ -76,9 +85,9 @@ abstract class BaseArticle extends GxActiveRecord {
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('content', $this->content, true);
 		$criteria->compare('create_at', $this->create_at, true);
-		$criteria->compare('create_by', $this->create_by, true);
+		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_at', $this->update_at, true);
-		$criteria->compare('update_by', $this->update_by, true);
+		$criteria->compare('update_by', $this->update_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

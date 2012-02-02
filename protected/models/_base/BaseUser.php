@@ -7,7 +7,7 @@
  * property or method in class "User".
  *
  * Columns in table "user" available as properties of the model,
- * and there are no model relations.
+ * followed by relations of table "user" available as properties of the model.
  *
  * @property string $id
  * @property string $name
@@ -20,6 +20,12 @@
  * @property string $update_at
  * @property string $update_by
  *
+ * @property Article[] $articles
+ * @property Article[] $articles1
+ * @property User $updateBy
+ * @property User[] $users
+ * @property User $createBy
+ * @property User[] $users1
  */
 abstract class BaseUser extends GxActiveRecord {
 
@@ -53,6 +59,12 @@ abstract class BaseUser extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'articles' => array(self::HAS_MANY, 'Article', 'update_by'),
+			'articles1' => array(self::HAS_MANY, 'Article', 'create_by'),
+			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
+			'users' => array(self::HAS_MANY, 'User', 'update_by'),
+			'createBy' => array(self::BELONGS_TO, 'User', 'create_by'),
+			'users1' => array(self::HAS_MANY, 'User', 'create_by'),
 		);
 	}
 
@@ -70,9 +82,15 @@ abstract class BaseUser extends GxActiveRecord {
 			'user_status_id' => Yii::t('app', 'User Status'),
 			'user_group_id' => Yii::t('app', 'User Group'),
 			'create_at' => Yii::t('app', 'Create At'),
-			'create_by' => Yii::t('app', 'Create By'),
+			'create_by' => null,
 			'update_at' => Yii::t('app', 'Update At'),
-			'update_by' => Yii::t('app', 'Update By'),
+			'update_by' => null,
+			'articles' => null,
+			'articles1' => null,
+			'updateBy' => null,
+			'users' => null,
+			'createBy' => null,
+			'users1' => null,
 		);
 	}
 
@@ -86,9 +104,9 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('user_status_id', $this->user_status_id);
 		$criteria->compare('user_group_id', $this->user_group_id);
 		$criteria->compare('create_at', $this->create_at, true);
-		$criteria->compare('create_by', $this->create_by, true);
+		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_at', $this->update_at, true);
-		$criteria->compare('update_by', $this->update_by, true);
+		$criteria->compare('update_by', $this->update_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -7,12 +7,14 @@
  * property or method in class "ArticleTag".
  *
  * Columns in table "article_tag" available as properties of the model,
- * and there are no model relations.
+ * followed by relations of table "article_tag" available as properties of the model.
  *
  * @property string $id
  * @property string $article_id
  * @property string $tag_id
  *
+ * @property Tag $tag
+ * @property Article $article
  */
 abstract class BaseArticleTag extends GxActiveRecord {
 
@@ -42,6 +44,8 @@ abstract class BaseArticleTag extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'tag' => array(self::BELONGS_TO, 'Tag', 'tag_id'),
+			'article' => array(self::BELONGS_TO, 'Article', 'article_id'),
 		);
 	}
 
@@ -53,8 +57,10 @@ abstract class BaseArticleTag extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'article_id' => Yii::t('app', 'Article'),
-			'tag_id' => Yii::t('app', 'Tag'),
+			'article_id' => null,
+			'tag_id' => null,
+			'tag' => null,
+			'article' => null,
 		);
 	}
 
@@ -62,8 +68,8 @@ abstract class BaseArticleTag extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('article_id', $this->article_id, true);
-		$criteria->compare('tag_id', $this->tag_id, true);
+		$criteria->compare('article_id', $this->article_id);
+		$criteria->compare('tag_id', $this->tag_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

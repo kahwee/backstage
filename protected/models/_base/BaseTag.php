@@ -7,11 +7,12 @@
  * property or method in class "Tag".
  *
  * Columns in table "tag" available as properties of the model,
- * and there are no model relations.
+ * followed by relations of table "tag" available as properties of the model.
  *
  * @property string $id
  * @property string $name
  *
+ * @property ArticleTag[] $articleTags
  */
 abstract class BaseTag extends GxActiveRecord {
 
@@ -41,6 +42,7 @@ abstract class BaseTag extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'articleTags' => array(self::HAS_MANY, 'ArticleTag', 'tag_id'),
 		);
 	}
 
@@ -53,6 +55,7 @@ abstract class BaseTag extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
+			'articleTags' => null,
 		);
 	}
 
