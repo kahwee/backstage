@@ -66,7 +66,6 @@ app/libraries/*
 app/resources/tmp/*
 
 #Yii Framework
-data/*
 assets/*
 protected/runtime/*
 protected/config/main.local.php
