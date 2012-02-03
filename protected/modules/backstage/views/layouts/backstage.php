@@ -58,22 +58,14 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			<ul class="breadcrumb">
-			  <li>
-			    <a href="#">User</a> <span class="divider">/</span>
-			  </li>
-			  <li class="active">
-			    <a href="#">Search</a>
-			  </li>
-			</ul>
 			<div class="well sidebar-nav">
 				<ul class="nav nav-list">
-					<li class="nav-header">Search Table List</li>
-					<li class="active"><a href="#">User</a></li>
-					<li><a href="#">Article</a></li>
-					<li class="nav-header">Create New</li>
-					<li><a href="#">User</a></li>
-					<li><a href="#">Article</a></li>
+					<li class="nav-header">Models</li>
+					<?php
+					foreach ($this->backstage_models as $model) {
+						echo CHtml::tag('li', array('class' => ($this->id == 'Models' ? 'active' : '' )), CHtml::link($model, array('model/index', 'name' => $model)));
+					}
+					?>
 				</ul>
 			</div><!--/.well -->
 		</div>

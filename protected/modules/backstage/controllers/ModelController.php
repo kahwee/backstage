@@ -1,11 +1,12 @@
 <?php
 
-class ModelController extends Controller
+class ModelController extends BackstageController
 {
 	public function actionIndex($name=null)
 	{
 		print_r($name);
 		echo "s";
+		$this->render('index');
 	}
 
 	public function actionD() {
