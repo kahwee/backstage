@@ -55,7 +55,7 @@ class BootActiveForm extends CActiveForm
 	public function inputRow($type, $model, $attribute, $data = null, $htmlOptions = array())
 	{
 		ob_start();
-		Yii::app()->controller->widget('bootstrap.widgets.BootInput',array(
+		Yii::app()->controller->widget('backstage.extensions.bootstrap.widgets.BootInput',array(
 			'type'=>$type,
 			'form'=>$this,
 			'model'=>$model,
