@@ -1,3 +1,6 @@
+<h2><?php echo get_class($model); ?></h2>
+<?php echo CHtml::link('Add', array('model/create', 'name' => get_class($model)), array('class' => 'btn btn-small')); ?>
+
 <?php
 Yii::import('backstage.extensions.bootstrap.widgets.BootGridView');
 Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
