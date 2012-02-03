@@ -6,6 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
+	
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'BackStage',
 
@@ -27,6 +28,7 @@ return array(
 			'generatorPaths' => array(
 				'ext.giix-core', // giix generators
 				'application.gii',
+				'ext.bootstrap-theme.gii',
 			),
 		),
 		'backstage'=>array(),
