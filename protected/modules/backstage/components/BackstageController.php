@@ -1,20 +1,24 @@
 <?php
+
 /**
  * BackstageController is the customized base controller class for Backstage.
  * All BackstageController classes for this module should extend from this base class.
  */
 class BackstageController extends Controller {
+
 	public $layout = 'backstage';
+
 	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+	 * @var array Names of all models
 	 */
 	public $backstage_models = array();
+
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
 	 * for more details on how to specify this property.
 	 */
-	public $breadcrumbs=array();
+	public $breadcrumbs = array();
 
 	/**
 	 * Initializes the controller.
@@ -24,4 +28,5 @@ class BackstageController extends Controller {
 	public function init() {
 		$this->backstage_models = BackstageHelper::getModels();
 	}
+
 }

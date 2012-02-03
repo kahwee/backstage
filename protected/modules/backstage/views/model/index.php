@@ -9,7 +9,7 @@ $columns[] = array(
 	'class' => 'BootButtonColumn',
 );
 $this->widget('BootGridView', array(
-	'id'=>'alert',
+	'id' => 'alert',
 	'htmlOptions' => array('class' => 'table-striped'),
 	'dataProvider' => $model->search(),
 	'template' => '<!--{summary}-->{items} {pager}',
