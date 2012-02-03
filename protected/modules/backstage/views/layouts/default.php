@@ -3,15 +3,20 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-	<?php 
-		# inc bootstrap
-		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage').'/bootstrap/js/bootstrap.min.js', false, -1, true);
+	<?php
+	# inc bootstrap
+		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage.bootstrap.js') . DIRECTORY_SEPARATOR . 'bootstrap.min.js', false, -1, true);
 		Yii::app()->clientScript->registerScriptFile($urlScript, CClientScript::POS_HEAD);
-		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage').'/bootstrap/css/bootstrap.css', false, -1, true);
+		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage.bootstrap.css') . DIRECTORY_SEPARATOR . 'bootstrap.css', false, -1, true);
 		Yii::app()->clientScript->registerCssFile($urlScript);
 	?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	   <style type="text/css">
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
 </head>
 
 <body>
@@ -58,7 +63,7 @@
 			    <a href="#">User</a> <span class="divider">/</span>
 			  </li>
 			  <li class="active">
-			    <a href="#">Search</a> 
+			    <a href="#">Search</a>
 			  </li>
 			</ul>
 			<div class="well sidebar-nav">
@@ -78,7 +83,7 @@
 	</div>
 	<div id="footer" style='text-align:center;font-size:8pt;color:#777'>
 		<div class="clear"></div>
-		Copyright &copy; <?php echo date('Y'); ?> by BackStage. All Rights Reserved.
+		Copyright &copy; <?php echo date('Y'); ?> by <?php echo Yii::app()->name; ?>. All Rights Reserved.
 	</div><!-- footer -->
 </div>
 
