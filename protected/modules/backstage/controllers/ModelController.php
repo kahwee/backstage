@@ -4,9 +4,11 @@ class ModelController extends BackstageController
 {
 	public function actionIndex($name=null)
 	{
-		print_r($name);
-		echo "s";
-		$this->render('index');
+
+		$model = new $name('search');
+		$this->render('index', compact(array(
+			'model',
+		)));
 	}
 
 	public function actionD() {

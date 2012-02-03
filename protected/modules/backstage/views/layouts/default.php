@@ -62,9 +62,10 @@
 				<ul class="nav nav-list">
 					<li class="nav-header">Models</li>
 					<?php
+					var_dump(Yii::app()->request->getParam('name'));
+					exit();
 					foreach ($this->backstage_models as $model) {
-						$is_active = Yii::app()->request->getParam('name') == $model && $this->id == 'model';
-						echo CHtml::tag('li', array('class' => ($is_active ? 'active' : '' )), CHtml::link($model, array('model/index', 'name' => $model)));
+						echo CHtml::tag('li', array('class' => ($this->id == 'Models' ? 'active' : '' )), CHtml::link($model, array('model/index', 'name' => $model)));
 					}
 					?>
 				</ul>

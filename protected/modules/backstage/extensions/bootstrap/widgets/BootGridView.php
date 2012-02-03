@@ -24,5 +24,5 @@ class BootGridView extends CGridView
 	 * @var array the configuration for the pager.
 	 * Defaults to <code>array('class'=>'ext.bootstrap.widgets.BootPager')</code>.
 	 */
-	public $pager = array('class'=>'bootstrap.widgets.BootPager');
+	public $pager = array('class'=>'backstage.extensions.bootstrap.widgets.BootPager');
 }

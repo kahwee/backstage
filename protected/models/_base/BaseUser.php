@@ -29,6 +29,8 @@
  */
 abstract class BaseUser extends GxActiveRecord {
 
+	const PAGE_SIZE = 2;
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -107,9 +109,13 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_at', $this->update_at, true);
 		$criteria->compare('update_by', $this->update_by);
+		$pagination = new CPagination;
+		$pagination->pageSize = self::PAGE_SIZE;
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
+			'pagination' => $pagination,
+
 		));
 	}
 }
