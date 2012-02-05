@@ -7,6 +7,7 @@ Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
 $columns = array_keys($model->metaData->columns);
 $columns[] = array(
 	'class' => 'BootButtonColumn',
+	'viewButtonUrl' => 'Yii::app()->controller->createUrl("model/view", array("name" => "' . $name . '", "id" => $data->id))',
 	'updateButtonUrl' => 'Yii::app()->controller->createUrl("model/update", array("name" => "' . $name . '", "id" => $data->id))',
 	'deleteButtonUrl' => 'Yii::app()->controller->createUrl("model/delete", array("name" => "' . $name . '", "id" => $data->id))',
 );

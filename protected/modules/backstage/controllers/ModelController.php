@@ -24,6 +24,14 @@ class ModelController extends BackstageController {
 			)));
 	}
 
+	public function actionView($name, $id) {
+		$model = $this->loadModel($name, $id);
+		$this->render('view', compact(array(
+				'model',
+				'name',
+			)));
+	}
+
 	public function actionUpdate($name, $id) {
 		$model = $this->loadModel($name, $id);
 		if (isset($_POST[$name])) {
