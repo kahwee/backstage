@@ -5,18 +5,16 @@
 		<meta name="language" content="en" />
 		<?php
 		# inc bootstrap
-		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage.bootstrap.js') . DIRECTORY_SEPARATOR . 'bootstrap.min.js', false, -1, true);
-		Yii::app()->clientScript->registerScriptFile($urlScript, CClientScript::POS_HEAD);
-		$urlScript = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage.bootstrap.css') . DIRECTORY_SEPARATOR . 'bootstrap.css', false, -1, true);
-		Yii::app()->clientScript->registerCssFile($urlScript);
+		$asset_url = Yii::app()->assetManager->publish(Yii::getPathOfAlias('backstage.bootstrap'), false, -1, true);
+		Yii::app()->clientScript->registerScriptFile("$asset_url/js/bootstrap.min.js", CClientScript::POS_HEAD);
+		Yii::app()->clientScript->registerCssFile("$asset_url/css/bootstrap.css");
 		?>
-
 		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 		<style type="text/css">
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
+			.sidebar-nav {
+				padding: 9px 0;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -80,7 +78,7 @@
 			</div>
 			<div id="footer" style='text-align:center;font-size:8pt;color:#777'>
 				<div class="clear"></div>
-				Copyright &copy; <?php echo date('Y'); ?> by <?php echo Yii::app()->name; ?>. All Rights Reserved.
+				&copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>.
 			</div><!-- footer -->
 		</div>
 
