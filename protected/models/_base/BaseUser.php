@@ -15,21 +15,23 @@
  * @property string $pwd
  * @property integer $user_status_id
  * @property integer $user_group_id
- * @property string $create_at
+ * @property string $create_time
  * @property string $create_by
- * @property string $update_at
+ * @property string $update_time
  * @property string $update_by
+ * @property string $delete_time
+ * @property string $delete_by
  *
  * @property Article[] $articles
  * @property Article[] $articles1
- * @property User $updateBy
+ * @property User $deleteBy
  * @property User[] $users
  * @property User $createBy
  * @property User[] $users1
+ * @property User $updateBy
+ * @property User[] $users2
  */
 abstract class BaseUser extends GxActiveRecord {
-
-	const PAGE_SIZE = 2;
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
@@ -49,24 +51,26 @@ abstract class BaseUser extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('create_at, create_by', 'required'),
+			array('create_time, create_by', 'required'),
 			array('user_status_id, user_group_id', 'numerical', 'integerOnly'=>true),
 			array('name, email, pwd', 'length', 'max'=>255),
-			array('create_by, update_by', 'length', 'max'=>11),
-			array('update_at', 'safe'),
-			array('name, email, pwd, user_status_id, user_group_id, update_at, update_by', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, email, pwd, user_status_id, user_group_id, create_at, create_by, update_at, update_by', 'safe', 'on'=>'search'),
+			array('create_by, update_by, delete_by', 'length', 'max'=>11),
+			array('update_time, delete_time', 'safe'),
+			array('name, email, pwd, user_status_id, user_group_id, update_time, update_by, delete_time, delete_by', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, email, pwd, user_status_id, user_group_id, create_time, create_by, update_time, update_by, delete_time, delete_by', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'articles' => array(self::HAS_MANY, 'Article', 'update_by'),
-			'articles1' => array(self::HAS_MANY, 'Article', 'create_by'),
-			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
-			'users' => array(self::HAS_MANY, 'User', 'update_by'),
+			'articles' => array(self::HAS_MANY, 'Article', 'create_by'),
+			'articles1' => array(self::HAS_MANY, 'Article', 'update_by'),
+			'deleteBy' => array(self::BELONGS_TO, 'User', 'delete_by'),
+			'users' => array(self::HAS_MANY, 'User', 'delete_by'),
 			'createBy' => array(self::BELONGS_TO, 'User', 'create_by'),
 			'users1' => array(self::HAS_MANY, 'User', 'create_by'),
+			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
+			'users2' => array(self::HAS_MANY, 'User', 'update_by'),
 		);
 	}
 
@@ -83,16 +87,20 @@ abstract class BaseUser extends GxActiveRecord {
 			'pwd' => Yii::t('app', 'Pwd'),
 			'user_status_id' => Yii::t('app', 'User Status'),
 			'user_group_id' => Yii::t('app', 'User Group'),
-			'create_at' => Yii::t('app', 'Create At'),
+			'create_time' => Yii::t('app', 'Create Time'),
 			'create_by' => null,
-			'update_at' => Yii::t('app', 'Update At'),
+			'update_time' => Yii::t('app', 'Update Time'),
 			'update_by' => null,
+			'delete_time' => Yii::t('app', 'Delete Time'),
+			'delete_by' => null,
 			'articles' => null,
 			'articles1' => null,
-			'updateBy' => null,
+			'deleteBy' => null,
 			'users' => null,
 			'createBy' => null,
 			'users1' => null,
+			'updateBy' => null,
+			'users2' => null,
 		);
 	}
 
@@ -105,17 +113,15 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('pwd', $this->pwd, true);
 		$criteria->compare('user_status_id', $this->user_status_id);
 		$criteria->compare('user_group_id', $this->user_group_id);
-		$criteria->compare('create_at', $this->create_at, true);
+		$criteria->compare('create_time', $this->create_time, true);
 		$criteria->compare('create_by', $this->create_by);
-		$criteria->compare('update_at', $this->update_at, true);
+		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
-		$pagination = new CPagination;
-		$pagination->pageSize = self::PAGE_SIZE;
+		$criteria->compare('delete_time', $this->delete_time, true);
+		$criteria->compare('delete_by', $this->delete_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
-			'pagination' => $pagination,
-
 		));
 	}
 }

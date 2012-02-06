@@ -1,3 +1,8 @@
+<div class="form-row clearfix error">
+		<label class="error required" for="User_create_at">Create At <span class="required">*</span></label>		<div class="input">
+			<input name="User[create_at]" id="User_create_at" type="text" value="" class="error">			<span class="help-inline">Create At cannot be blank.</span>		</div>
+	</div>
+<input type="text" name="some_name" value="" id="some_name" />
 <table class="table table-striped table-condensed">
 	<thead >
 		<tr >

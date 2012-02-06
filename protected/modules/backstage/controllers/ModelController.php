@@ -15,6 +15,7 @@ class ModelController extends BackstageController {
 		if (isset($_POST[$name])) {
 			$model->attributes = $_POST[$name];
 			if ($model->save()) {
+				Yii::app()->user->setFlash('success',"Data saved successfully");
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
@@ -37,6 +38,7 @@ class ModelController extends BackstageController {
 		if (isset($_POST[$name])) {
 			$model->attributes = $_POST[$name];
 			if ($model->save()) {
+				Yii::app()->user->setFlash('success',"Data updated successfully");
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
@@ -65,8 +67,11 @@ class ModelController extends BackstageController {
 		if (Yii::app()->request->isPostRequest) {
 			$model = $this->loadModel($name, $id);
 			$model->delete();
-			if (!isset($_POST['ajax']))
+			if (!isset($_POST['ajax'])) {
+				
+				Yii::app()->user->setFlash('success',"Data delete");
 				$this->redirect(array('index'));
+			}
 		} else
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 	}

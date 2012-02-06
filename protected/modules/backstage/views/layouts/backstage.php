@@ -27,15 +27,14 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="#"><?php echo CHtml::encode(Yii::app()->name) ?></a>
+					<a class="brand" href="/backstage"><?php echo CHtml::encode(Yii::app()->name) ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<li class='active'><a href="/backstage">Dashboard</a></li>
+							<li class='active'><a href="/">View Sites</a></li>
 							<li><a href="/backstage/faq">FAQ</a></li>
 						</ul>
 						<ul class="nav pull-right">
-							<li ><a href="#" >Account Setting</a></li>
-							<li ><a href="#" >View Front</a></li>
+							<li ><a href="#" >Logout</a></li>
 						</ul>
 						<p class="navbar-text pull-right">Welcome Admin! </p>
 					</div><!--/.nav-collapse -->
