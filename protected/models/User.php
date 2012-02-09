@@ -5,7 +5,11 @@ Yii::import('application.models._base.BaseUser');
 class User extends BaseUser {
 
 	const PAGE_SIZE = 2;
-	
+	public function rules() {
+		return array(
+			array('email', 'required'),
+		)+parent::rules();
+	}
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -27,8 +31,6 @@ class User extends BaseUser {
 		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
-		$criteria->compare('delete_time', $this->delete_time, true);
-		$criteria->compare('delete_by', $this->delete_by);
 	
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

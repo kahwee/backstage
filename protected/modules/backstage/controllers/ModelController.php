@@ -4,9 +4,11 @@ class ModelController extends BackstageController {
 
 	public function actionIndex($name=null) {
 		$model = new $name('search');
+		$backstage_models = $this->backstage_models;
 		$this->render('index', compact(array(
 				'model',
 				'name',
+				'backstage_models',
 			)));
 	}
 
@@ -19,17 +21,21 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
+		$backstage_models = $this->backstage_models;
 		$this->render('create', compact(array(
 				'model',
 				'name',
+				'backstage_models',
 			)));
 	}
 
 	public function actionView($name, $id) {
 		$model = $this->loadModel($name, $id);
+		$backstage_models = $this->backstage_models;
 		$this->render('view', compact(array(
 				'model',
 				'name',
+				'backstage_models',
 			)));
 	}
 
@@ -42,9 +48,11 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
+		$backstage_models = $this->backstage_models;
 		$this->render('update', compact(array(
 				'model',
 				'name',
+				'backstage_models',
 			)));
 	}
 

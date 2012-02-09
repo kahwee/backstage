@@ -12,13 +12,13 @@
  * @property string $id
  * @property string $name
  * @property string $content
- * @property string $create_at
+ * @property string $create_time
  * @property string $create_by
- * @property string $update_at
+ * @property string $update_time
  * @property string $update_by
  *
- * @property User $updateBy
  * @property User $createBy
+ * @property User $updateBy
  * @property ArticleTag[] $articleTags
  */
 abstract class BaseArticle extends GxActiveRecord {
@@ -41,19 +41,19 @@ abstract class BaseArticle extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('create_at, create_by', 'required'),
+			array('create_time, create_by', 'required'),
 			array('name', 'length', 'max'=>255),
 			array('create_by, update_by', 'length', 'max'=>11),
-			array('content, update_at', 'safe'),
-			array('name, content, update_at, update_by', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, content, create_at, create_by, update_at, update_by', 'safe', 'on'=>'search'),
+			array('content, update_time', 'safe'),
+			array('name, content, update_time, update_by', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, content, create_time, create_by, update_time, update_by', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
 			'createBy' => array(self::BELONGS_TO, 'User', 'create_by'),
+			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
 			'articleTags' => array(self::HAS_MANY, 'ArticleTag', 'article_id'),
 		);
 	}
@@ -68,12 +68,12 @@ abstract class BaseArticle extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'content' => Yii::t('app', 'Content'),
-			'create_at' => Yii::t('app', 'Create At'),
+			'create_time' => Yii::t('app', 'Create Time'),
 			'create_by' => null,
-			'update_at' => Yii::t('app', 'Update At'),
+			'update_time' => Yii::t('app', 'Update Time'),
 			'update_by' => null,
-			'updateBy' => null,
 			'createBy' => null,
+			'updateBy' => null,
 			'articleTags' => null,
 		);
 	}
@@ -84,9 +84,9 @@ abstract class BaseArticle extends GxActiveRecord {
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('content', $this->content, true);
-		$criteria->compare('create_at', $this->create_at, true);
+		$criteria->compare('create_time', $this->create_time, true);
 		$criteria->compare('create_by', $this->create_by);
-		$criteria->compare('update_at', $this->update_at, true);
+		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
 
 		return new CActiveDataProvider($this, array(

@@ -19,17 +19,13 @@
  * @property string $create_by
  * @property string $update_time
  * @property string $update_by
- * @property string $delete_time
- * @property string $delete_by
  *
  * @property Article[] $articles
  * @property Article[] $articles1
- * @property User $deleteBy
- * @property User[] $users
  * @property User $createBy
- * @property User[] $users1
+ * @property User[] $users
  * @property User $updateBy
- * @property User[] $users2
+ * @property User[] $users1
  */
 abstract class BaseUser extends GxActiveRecord {
 
@@ -54,10 +50,10 @@ abstract class BaseUser extends GxActiveRecord {
 			array('create_time, create_by', 'required'),
 			array('user_status_id, user_group_id', 'numerical', 'integerOnly'=>true),
 			array('name, email, pwd', 'length', 'max'=>255),
-			array('create_by, update_by, delete_by', 'length', 'max'=>11),
-			array('update_time, delete_time', 'safe'),
-			array('name, email, pwd, user_status_id, user_group_id, update_time, update_by, delete_time, delete_by', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, email, pwd, user_status_id, user_group_id, create_time, create_by, update_time, update_by, delete_time, delete_by', 'safe', 'on'=>'search'),
+			array('create_by, update_by', 'length', 'max'=>11),
+			array('update_time', 'safe'),
+			array('name, email, pwd, user_status_id, user_group_id, update_time, update_by', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, email, pwd, user_status_id, user_group_id, create_time, create_by, update_time, update_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,12 +61,10 @@ abstract class BaseUser extends GxActiveRecord {
 		return array(
 			'articles' => array(self::HAS_MANY, 'Article', 'create_by'),
 			'articles1' => array(self::HAS_MANY, 'Article', 'update_by'),
-			'deleteBy' => array(self::BELONGS_TO, 'User', 'delete_by'),
-			'users' => array(self::HAS_MANY, 'User', 'delete_by'),
 			'createBy' => array(self::BELONGS_TO, 'User', 'create_by'),
-			'users1' => array(self::HAS_MANY, 'User', 'create_by'),
+			'users' => array(self::HAS_MANY, 'User', 'create_by'),
 			'updateBy' => array(self::BELONGS_TO, 'User', 'update_by'),
-			'users2' => array(self::HAS_MANY, 'User', 'update_by'),
+			'users1' => array(self::HAS_MANY, 'User', 'update_by'),
 		);
 	}
 
@@ -91,16 +85,12 @@ abstract class BaseUser extends GxActiveRecord {
 			'create_by' => null,
 			'update_time' => Yii::t('app', 'Update Time'),
 			'update_by' => null,
-			'delete_time' => Yii::t('app', 'Delete Time'),
-			'delete_by' => null,
 			'articles' => null,
 			'articles1' => null,
-			'deleteBy' => null,
-			'users' => null,
 			'createBy' => null,
-			'users1' => null,
+			'users' => null,
 			'updateBy' => null,
-			'users2' => null,
+			'users1' => null,
 		);
 	}
 
@@ -117,8 +107,6 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
-		$criteria->compare('delete_time', $this->delete_time, true);
-		$criteria->compare('delete_by', $this->delete_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

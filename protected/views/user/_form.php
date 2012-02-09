@@ -52,11 +52,11 @@
 		</div>
 	</div>
 
-	<div class="<?php echo $form->fieldClass($model, 'create_at'); ?>">
-		<?php echo $form->labelEx($model,'create_at'); ?>
+	<div class="<?php echo $form->fieldClass($model, 'create_time'); ?>">
+		<?php echo $form->labelEx($model,'create_time'); ?>
 		<div class="input">
-			<?php echo $form->textField($model,'create_at'); ?>
-			<?php echo $form->error($model,'create_at'); ?>
+			<?php echo $form->textField($model,'create_time'); ?>
+			<?php echo $form->error($model,'create_time'); ?>
 		</div>
 	</div>
 
@@ -68,11 +68,11 @@
 		</div>
 	</div>
 
-	<div class="<?php echo $form->fieldClass($model, 'update_at'); ?>">
+	<div class="<?php echo $form->fieldClass($model, 'create_time'); ?>">
 		<?php echo $form->labelEx($model,'update_at'); ?>
 		<div class="input">
-			<?php echo $form->textField($model,'update_at'); ?>
-			<?php echo $form->error($model,'update_at'); ?>
+			<?php echo $form->textField($model,'create_time'); ?>
+			<?php echo $form->error($model,'create_time'); ?>
 		</div>
 	</div>
 

@@ -10,11 +10,6 @@
 		Yii::app()->clientScript->registerCssFile("$asset_url/css/bootstrap.css");
 		?>
 		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-		<style type="text/css">
-			.sidebar-nav {
-				padding: 9px 0;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -58,29 +53,22 @@
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2">
-					<div class="well sidebar-nav">
-						<ul class="nav nav-list">
-							<li class="nav-header">Models</li>
-							<?php
-							foreach ($this->backstage_models as $model) {
-								$is_active = Yii::app()->request->getParam('name') == $model && $this->id == 'model';
-								echo CHtml::tag('li', array('class' => ($is_active ? 'active' : '' )), CHtml::link($model, array('model/index', 'name' => $model)));
-							}
-							?>
-						</ul>
-					</div><!--/.well -->
-				</div>
-				<div class="span10">
-					<?php echo $content; ?>
-				</div>
+				<?php echo $content; ?>
 			</div>
 			<div id="footer" style='text-align:center;font-size:8pt;color:#777'>
 				<div class="clear"></div>
 				&copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>.
 			</div><!-- footer -->
 		</div>
-
-
+<style type="text/css" media="screen">
+.sidebar-nav{
+	background-color:whiteSmoke;
+	min-height:580px;
+	margin-top:-40px; padding-top:40px;
+	margin-left:-20px; padding-left:0px;
+	border-right:1px solid #CCC;
+}
+.clear{clear:both;}
+</style>
 	</body>
 </html>

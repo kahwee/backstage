@@ -27,9 +27,9 @@ $this->menu=array(
 		'pwd',
 		'user_status_id',
 		'user_group_id',
-		'create_at',
+		'create_time',
 		'create_by',
-		'update_at',
+		'update_time',
 		'update_by',
 	),
 )); ?>
