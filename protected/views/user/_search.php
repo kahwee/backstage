@@ -48,9 +48,9 @@
 	</div>
 
 	<div class="clearfix">
-		<?php echo $form->label($model,'create_at'); ?>
+		<?php echo $form->label($model,'create_time'); ?>
 		<div class="input">
-			<?php echo $form->textField($model,'create_at'); ?>
+			<?php echo $form->textField($model,'create_time'); ?>
 		</div>
 	</div>
 
@@ -62,9 +62,9 @@
 	</div>
 
 	<div class="clearfix">
-		<?php echo $form->label($model,'update_at'); ?>
+		<?php echo $form->label($model,'update_time'); ?>
 		<div class="input">
-			<?php echo $form->textField($model,'update_at'); ?>
+			<?php echo $form->textField($model,'update_time'); ?>
 		</div>
 	</div>
 

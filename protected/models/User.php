@@ -8,12 +8,17 @@ class User extends BaseUser {
 	public function rules() {
 		return array(
 			array('email', 'required'),
+			array('email', 'email')
 		)+parent::rules();
 	}
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
-	
+	public function attributeLabels() {
+		return array(
+			'pwd' => Yii::t('app', 'Password'),
+		)+parent::attributeLabels();
+	}
 	public function search() {
 		
 		$pagination = new CPagination;
