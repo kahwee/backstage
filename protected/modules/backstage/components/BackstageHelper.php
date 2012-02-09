@@ -29,21 +29,20 @@ class BackstageHelper {
 	 * @author KahWee Teng <t@kw.sg>
 	 * @param string $haystack The string to search in.
 	 * @param mixed $needle partial string to end with. If it is an array, it will test all.
-	 * @return boolean
+	 * @return boolean True if ends with at least one correct entry.
 	 */
 	public static function endsWith($haystack, $needle) {
 		$success = false;
+		$haystack_length = strlen($haystack);
 		if (is_string($needle)) {
-			$strlen = strlen($haystack);
-			$testlen = strlen($needle);
-			if ($testlen > $strlen)
+			$needle_length = strlen($needle);
+			if ($needle_length > $haystack_length)
 				return false;
-			return substr_compare($haystack, $needle, -$testlen) === 0;
+			return substr_compare($haystack, $needle, -$needle_length) === 0;
 		} elseif (is_array($needle)) {
 			foreach ($needle as $needle_single) {
-				$strlen = strlen($haystack);
-				$testlen = strlen($needle_single);
-				if ($testlen <= $strlen && substr_compare($haystack, $needle_single, -$testlen) === 0)
+				$needle_length = strlen($needle_single);
+				if ($needle_length <= $haystack_length && substr_compare($haystack, $needle_single, -$needle_length) === 0)
 					return true;
 			}
 		}
