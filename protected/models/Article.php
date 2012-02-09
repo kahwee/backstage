@@ -8,4 +8,11 @@ class Article extends BaseArticle {
 		return parent::model($className);
 	}
 
+	public function attributeLabels() {
+		return array(
+			'create_by' => 'Created By',
+			'update_by' => 'Updated by',
+		) + parent::attributeLabels();
+	}
+
 }

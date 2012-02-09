@@ -8,17 +8,18 @@ class User extends BaseUser {
 	public function rules() {
 		return array(
 			array('email', 'required'),
-		)+parent::rules();
+		) + parent::rules();
 	}
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
-	
+
 	public function search() {
-		
+
 		$pagination = new CPagination;
 		$pagination->pageSize = self::PAGE_SIZE;
-		
+
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
@@ -31,7 +32,7 @@ class User extends BaseUser {
 		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
-	
+
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'pagination' => $pagination,

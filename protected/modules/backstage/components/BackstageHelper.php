@@ -23,6 +23,33 @@ class BackstageHelper {
 		return $model_names;
 	}
 
+	/**
+	 * Checks if the string ends with
+	 *
+	 * @author KahWee Teng <t@kw.sg>
+	 * @param string $haystack The string to search in.
+	 * @param mixed $needle partial string to end with. If it is an array, it will test all.
+	 * @return boolean
+	 */
+	public static function endsWith($haystack, $needle) {
+		$success = false;
+		if (is_string($needle)) {
+			$strlen = strlen($haystack);
+			$testlen = strlen($needle);
+			if ($testlen > $strlen)
+				return false;
+			return substr_compare($haystack, $needle, -$testlen) === 0;
+		} elseif (is_array($needle)) {
+			foreach ($needle as $needle_single) {
+				$strlen = strlen($haystack);
+				$testlen = strlen($needle_single);
+				if ($testlen <= $strlen && substr_compare($haystack, $needle_single, -$testlen) === 0)
+					return true;
+			}
+		}
+		return $success;
+	}
+
 }
 
 ?>
