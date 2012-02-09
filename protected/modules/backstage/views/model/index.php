@@ -35,13 +35,6 @@
 				'value' => 'BackstageHelper::getRelatedAttribute($data, "' . $column_k . '")',
 			);
 		}
-		array(
-			'header' => Yii::t('Label', 'Ref'),
-			'name' => 'reference',
-			'type' => 'raw',
-			'value' => '$data->reference',
-			'htmlOptions' => array("width" => "15%"),
-		);
 	}
 	$columns[] = array(
 		'class' => 'BootButtonColumn',
