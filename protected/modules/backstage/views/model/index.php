@@ -14,13 +14,28 @@
 </div>
 <div class="span10">
 	<h2 class='pull-left' style='min-width:180px'>Search <?php echo $name; ?></h2>
-	<?php echo CHtml::link('Add New '.$name, array('model/create', 'name' => $name), array('class' => 'btn btn-small btn-primary pull-left','style'=>'margin: 4px 30px;')); ?>
+	<?php echo CHtml::link('Add New '. $name, array('model/create', 'name' => $name), array('class' => 'btn btn-small btn-primary pull-left','style'=>'margin: 4px 30px;')); ?>
 	<div class='clear'></div>
 
 	<?php
 	Yii::import('backstage.extensions.bootstrap.widgets.BootGridView');
 	Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
-	$columns = array_keys($model->metaData->columns);
+	$columns = array();
+	foreach ($model->metaData->columns as $column_k => $column_v) {
+		$belongsToRelation = BackstageHelper::getModelBelongsTo($model, $column_k);
+		if (empty($belongsToRelation)) {
+			$columns[] = array(
+				'name' => $column_k,
+			);
+		} else {
+			$belongsToRelationKeys = array_keys($belongsToRelation[0]);
+			$columns[] = array(
+				'name' => $column_k,
+				'type' => 'raw',
+				'value' => 'BackstageHelper::getRelatedAttribute($data, "' . $column_k . '")',
+			);
+		}
+	}
 	$columns[] = array(
 		'class' => 'BootButtonColumn',
 		'viewButtonUrl' => 'Yii::app()->controller->createUrl("model/view", array("name" => "' . $name . '", "id" => $data->id))',

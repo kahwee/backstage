@@ -23,6 +23,81 @@ class BackstageHelper {
 		return $model_names;
 	}
 
+	/**
+	 * Gets the related attributes for BelongsTo relation.
+	 * 
+	 * @param object $model Model, if in CGridView column, this will be $data.
+	 * @param string $attribute Name of the field.
+	 * @return string Link if relation works, plain attribute value if doesn't.
+	 */
+	public static function getRelatedAttribute($model, $attribute) {
+		$belongsToRelation = self::getModelBelongsTo($model, $attribute);
+		$belongsToRelationKey = array_shift(array_keys($belongsToRelation[0]));
+		$link_text = null;
+		if (isset($model->$belongsToRelationKey) && $belongsToModel = $model->$belongsToRelationKey->find()) {
+			$belongsToModelAttributes = $belongsToModel->attributes;
+			if (isset($belongsToModelAttributes['display_name'])) {
+				$link_text = $belongsToModelAttributes['display_name'];
+			} elseif (isset($belongsToModelAttributes['name'])) {
+				$link_text = $belongsToModelAttributes['name'];
+			} else {
+				$link_text = $belongsToModelAttributes['id'];
+			}
+		}
+		if (empty($link_text)) {
+			return $model->{$attribute};
+		} else {
+			return CHtml::link($link_text, array('model/view', 'name' => $belongsToRelation[0][$belongsToRelationKey][1], 'id' => $model->id));
+		}
+	}
+
+	/**
+	 * Gets the belongsTo array based on the attribute.
+	 *
+	 * @param object $model
+	 * @param string $attribute
+	 * @return array 
+	 */
+	public static function getModelBelongsTo($model, $attribute=null) {
+		$out = array();
+		foreach ($model->relations() as $k => $v) {
+			if (isset($v[0]) && $v[0] == 'CBelongsToRelation') {
+				if (is_null($attribute)) {
+					$out[] = array($k => $v);
+				} elseif (isset($v[2]) && strcasecmp($v[2], $attribute) === 0) {
+					$out[] = array($k => $v);
+				}
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * Checks if the string ends with
+	 *
+	 * @author KahWee Teng <t@kw.sg>
+	 * @param string $haystack The string to search in.
+	 * @param mixed $needle partial string to end with. If it is an array, it will test all.
+	 * @return boolean True if ends with at least one correct entry.
+	 */
+	public static function endsWith($haystack, $needle) {
+		$success = false;
+		$haystack_length = strlen($haystack);
+		if (is_string($needle)) {
+			$needle_length = strlen($needle);
+			if ($needle_length > $haystack_length)
+				return false;
+			return substr_compare($haystack, $needle, -$needle_length) === 0;
+		} elseif (is_array($needle)) {
+			foreach ($needle as $needle_single) {
+				$needle_length = strlen($needle_single);
+				if ($needle_length <= $haystack_length && substr_compare($haystack, $needle_single, -$needle_length) === 0)
+					return true;
+			}
+		}
+		return $success;
+	}
+
 }
 
 ?>
