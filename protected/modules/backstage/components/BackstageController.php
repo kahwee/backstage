@@ -56,8 +56,8 @@ class BackstageController extends Controller {
 				#Converted to array as it is more consistent with options.
 				$model_v = CMap::mergeArray(array_map('get_object_vars', $loaded_columns), $model_v);
 				foreach ($model_v as $column_k => &$column_v) {
-					if (!isset($column_v['control']))
-						$column_v['control'] = $this->assignDefaultControl($column_v);
+					$column_v['control'] = $this->assignControl($column_v);
+					$column_v['visible'] = $this->assignVisible($column_v);
 				}
 			}
 		}
@@ -65,11 +65,12 @@ class BackstageController extends Controller {
 
 	/**
 	 * With the column data, discover the most suited HTML control to use.
-	 * 
+	 *
 	 * @param array $column_data Array converted from any one of metaData->columns
-	 * @return string The type of control suitable. 
+	 * @return string The type of control suitable.
 	 */
-	private function assignDefaultControl($column_data) {
+	private function assignControl($column_data) {
+		if (isset($column_data['control'])) return $column_data['control'];
 		if (BackstageHelper::endsWith($column_data['dbType'], array('_rich'))) {
 			return 'richtext';
 		}
@@ -88,4 +89,27 @@ class BackstageController extends Controller {
 		return 'textfield';
 	}
 
+	/**
+	 * With the column data, discover the most suited visibility to use.
+	 *
+	 * @param array $column_data Array converted from any one of metaData->columns
+	 * @return mixed An array of the views where the type of visibility are most
+	 * appropriate. A boolean of false if visible is negative for everything.
+	 */
+	private function assignVisible($column_data) {
+		if (isset($column_data['visible'])) {
+			if ($column_data['visible'] === false) {
+				return false;
+			}
+			#This means it is an array and it is not an empty one.
+			if (is_array($column_data['visible']) && isset($column_data['visible'][0])) {
+				return $column_data['visible'];
+			}
+		} else {
+			#What to do when there is no indication. Guess?
+			#Since autoincrement, don't show.
+			if ($column_data['autoIncrement'] === true) return false;
+		}
+		return array('index', 'view', 'search', 'create', 'update');
+	}
 }
