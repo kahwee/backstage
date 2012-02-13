@@ -34,7 +34,7 @@ CREATE TABLE `article` (
   `update_time` datetime DEFAULT NULL,
   `update_by` int(11) unsigned DEFAULT NULL,
   `delete_time` datetime DEFAULT NULL,
-  `delete_ by` int(11) DEFAULT NULL,
+  `delete_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `article_create_by` (`create_by`),
   KEY `article_update_by` (`update_by`),
