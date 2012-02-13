@@ -17,7 +17,7 @@ class BackstageHelper {
 		foreach ($model_files as $model_file) {
 			$model_name = str_replace(DIRECTORY_SEPARATOR, '', str_replace('.php', '', str_replace($models_path, '', $model_file)));
 			if (method_exists($model_name, 'model')) {
-				$model_names[] = $model_name;
+				$model_names[$model_name] = array();
 			}
 		}
 		return $model_names;
@@ -25,7 +25,7 @@ class BackstageHelper {
 
 	/**
 	 * Gets the related attributes for BelongsTo relation.
-	 * 
+	 *
 	 * @param object $model Model, if in CGridView column, this will be $data.
 	 * @param string $attribute Name of the field.
 	 * @return string Link if relation works, plain attribute value if doesn't.
@@ -57,7 +57,7 @@ class BackstageHelper {
 	 *
 	 * @param object $model
 	 * @param string $attribute
-	 * @return array 
+	 * @return array
 	 */
 	public static function getModelBelongsTo($model, $attribute=null) {
 		$out = array();

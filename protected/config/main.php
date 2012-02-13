@@ -26,7 +26,19 @@ return array(
 				'ext.bootstrap-theme.gii',
 			),
 		),
-		'backstage' => array(),
+		'backstage' => array(
+			#'autoloadModels' => false,
+			'models' => array(
+				'User' => false,
+				'Tag' => array(
+				),
+				'Article' => array(
+					'content' => array(
+						'control' => 'richtext',
+					),
+				),
+			)
+		),
 	),
 	// application components
 	'components' => array(
