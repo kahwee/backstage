@@ -32,7 +32,8 @@ class BackstageHelper {
 	 */
 	public static function getRelatedAttribute($model, $attribute) {
 		$belongsToRelation = self::getModelBelongsTo($model, $attribute);
-		$belongsToRelationKey = array_shift(array_keys($belongsToRelation[0]));
+		$belongsToRelationKeys = array_keys($belongsToRelation[0]);
+		$belongsToRelationKey = array_shift($belongsToRelationKeys);
 		$link_text = null;
 		if (isset($model->$belongsToRelationKey) && $belongsToModel = $model->$belongsToRelationKey->find()) {
 			$belongsToModelAttributes = $belongsToModel->attributes;
