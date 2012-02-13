@@ -29,9 +29,14 @@ class BackstageController extends Controller {
 		#Init models.
 		$this->buildModelsOptions();
 		$this->buildModelsColumnsOptions();
+		#Legacy, to be removed in future:
 		$this->backstage_models = array_keys(Yii::app()->controller->module->models);
 	}
 
+	/**
+	 * Finds all the models in the directory and merge them with the ones
+	 * found in options.
+	 */
 	private function buildModelsOptions() {
 		$load_models = array();
 		if (Yii::app()->controller->module->autoloadModels) {
@@ -40,10 +45,15 @@ class BackstageController extends Controller {
 		}
 	}
 
+	/**
+	 * Find all the columns for the respective models and merge them into options.
+	 * Additionally this also assigns default controls if not present.
+	 */
 	private function buildModelsColumnsOptions() {
 		foreach (Yii::app()->controller->module->models as $model_k => &$model_v) {
 			if ($model_v !== false) {
 				$loaded_columns = $model_k::model()->metaData->columns;
+				#Converted to array as it is more consistent with options.
 				$model_v = CMap::mergeArray(array_map('get_object_vars', $loaded_columns), $model_v);
 				foreach ($model_v as $column_k => &$column_v) {
 					if (!isset($column_v['control']))
@@ -53,6 +63,12 @@ class BackstageController extends Controller {
 		}
 	}
 
+	/**
+	 * With the column data, discover the most suited HTML control to use.
+	 * 
+	 * @param array $column_data Array converted from any one of metaData->columns
+	 * @return string The type of control suitable. 
+	 */
 	private function assignDefaultControl($column_data) {
 		if (BackstageHelper::endsWith($column_data['dbType'], array('_rich'))) {
 			return 'richtext';
