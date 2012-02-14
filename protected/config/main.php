@@ -31,11 +31,18 @@ return array(
 			'models' => array(
 				'User' => false,
 				'Tag' => array(
+					'id' => array(
+						'control' => 'datetime',
+						'visible' => true,
+					)
 				),
 				'Article' => array(
 					'content' => array(
 						'control' => 'richtext',
 					),
+					'user_id' => array(
+						'control' => 'relation',
+					)
 				),
 			)
 		),

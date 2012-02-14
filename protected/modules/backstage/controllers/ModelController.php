@@ -3,6 +3,7 @@
 class ModelController extends BackstageController {
 
 	public function actionIndex($name=null) {
+		var_dump(Yii::app()->controller->module->models);
 		$model = new $name('search');
 		$backstage_models = $this->backstage_models;
 		$this->render('index', compact(array(
