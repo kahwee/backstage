@@ -2,19 +2,15 @@
 $model_name = (isset($_GET['name'])) ? $_GET['name'] : '';
 $action_name = $model->isNewRecord ? 'Create' : 'Update';
 $this_models = $this->module->models[$model_name];
-#echo "<pre>"; var_dump( $this_models ); echo "</pre>"; 
+#echo "<pre>"; var_dump( $this_models ); echo "</pre>";
 ?>
 <div class="span2">
 	<div class="sidebar-nav">
-		<ul class="nav nav-list">
-			<li class="nav-header">Models</li>
-			<?php
-			foreach ($models_key as $t_model) {
-				$is_active = $model_name == $t_model && $this->id == 'model';
-				echo CHtml::tag('li', array('class' => ($is_active ? 'active' : '' )), CHtml::link($t_model, array('model/index', 'name' => $t_model)));
-			}
-			?>
-		</ul>
+		<?php
+		$this->renderPartial('_model_list', compact(array(
+			'model', 'models_key',
+		)));
+		?>
 	</div><!-- sidebar-nav -->
 </div>
 <div class="span7">
@@ -24,7 +20,7 @@ $this_models = $this->module->models[$model_name];
 	<div class='clear' style='height:20px;'></div>
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'example-form',
+		'id' => 'model-form',
 		'enableClientValidation' => false,
 		'errorMessageCssClass' => 'help-inline',
 		'htmlOptions' => array('enctype' => 'multipart/form-data'),
@@ -35,12 +31,12 @@ $this_models = $this->module->models[$model_name];
 	));?>
 
 	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert-message block-message error fade in')); ?>
-	
+
 	<?php foreach ( $this_models as $name => $attr ) {
-		
+
 		if (
 			$attr['visible']
-		) { 
+		) {
 			?>
 			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
 				<?php echo $form->labelEx($model,$name); ?>
@@ -75,12 +71,12 @@ $this_models = $this->module->models[$model_name];
 <?php if ($action_name == 'Update'): ?>
 	<div class="well span2">
 		<?php foreach ($this_models as $name => $attr) {
-			
+
 			# Field investigate process
 			if (
 				isset($attr['visible_system']) &&
 				$attr['visible_system']
-			) { 
+			) {
 				?>
 				<div class="sys-field">
 					<?php echo $form->labelEx($model,$name); ?>
