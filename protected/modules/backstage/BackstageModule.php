@@ -73,8 +73,11 @@ class BackstageModule extends CWebModule {
 	 */
 	private function assignControl($column_data) {
 		if (isset($column_data['control'])) return $column_data['control'];
-		if (BackstageHelper::endsWith($column_data['dbType'], array('_rich'))) {
+		if (BackstageHelper::endsWith($column_data['name'], array('_rich'))) {
 			return 'richtext';
+		}
+		if (BackstageHelper::endsWith($column_data['name'], array('_url', '_uri'))) {
+			return 'url';
 		}
 		if (strcasecmp($column_data['name'], 'email') === 0) {
 			return 'email';
