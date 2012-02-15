@@ -39,10 +39,23 @@ $this_models = $this->module->models[$model_name];
 		) {
 			?>
 			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
-				<?php echo $form->labelEx($model,$name); ?>
+				<?php echo $form->labelEx($model, $name); ?>
 				<div class="controls" >
 					<?php if ($attr['control']=='richtext'): ?>
-						<?php echo $form->textarea($model,$name); ?>
+					<?php
+						Yii::import('backstage.extensions.krichtexteditor.KRichTextEditor');
+						$this->widget('KRichTextEditor', array(
+							'model' => $model,
+							'value' => $model->isNewRecord ? $model->{$name} : '',
+							'attribute' => $name,
+							'options' => array(
+								'theme_advanced_resizing' => 'true',
+								'theme_advanced_statusbar_location' => 'bottom',
+							),
+							'htmlOptions' => array('size' => 10)
+						));
+
+					?>
 					<?php elseIf ($attr['control']=='password'): ?>
 						<?php echo $form->passwordField($model,$name); ?>
 					<?php elseIf ($attr['control']=='email'): ?>
