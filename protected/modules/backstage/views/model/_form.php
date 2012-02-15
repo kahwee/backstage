@@ -52,7 +52,6 @@ $this_models = $this->module->models[$model_name];
 								'theme_advanced_resizing' => 'true',
 								'theme_advanced_statusbar_location' => 'bottom',
 							),
-							'htmlOptions' => array('size' => 10)
 						));
 
 					?>

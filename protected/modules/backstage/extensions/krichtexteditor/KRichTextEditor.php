@@ -14,7 +14,6 @@
  *			'theme_advanced_resizing' => 'true',
  *			'theme_advanced_statusbar_location' => 'bottom',
  *		),
- *		'htmlOptions' => array('size' => 10)
  *	));
  *
  * Assigning options would overwrite the default options that will be
