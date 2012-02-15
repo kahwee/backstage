@@ -49,11 +49,17 @@ class BackstageModule extends CWebModule {
 		foreach ($this->models as $model_k => &$model_v) {
 			if ($model_v !== false) {
 				$loaded_columns = $model_k::model()->metaData->columns;
+				#Check if the column is not defined.
+				$undefined_columns = array_keys(array_diff_key($model_v, $loaded_columns));
+				if (!empty($undefined_columns)) {
+					throw new BackstageColumnNotFoundException("Column '{$undefined_columns[0]}' is not defined in model {$model_k} but is found in Backstage module's 'models' key. You may need to check your ./protected/config/main.php");
+				}
 				#Converted to array as it is more consistent with options.
 				$model_v = CMap::mergeArray(array_map('get_object_vars', $loaded_columns), $model_v);
 				foreach ($model_v as $column_k => &$column_v) {
 					$column_v['control'] = $this->assignControl($column_v);
 					$column_v['visible'] = $this->assignVisible($column_v);
+					$column_v['locked'] = $this->assignLocked($column_v);
 				}
 			}
 		}
@@ -108,4 +114,29 @@ class BackstageModule extends CWebModule {
 		}
 		return array('index', 'view', 'search', 'create', 'update');
 	}
+
+	/**
+	 * With the column data, discover if the item should be locked and be place
+	 * in the sidebar.
+	 *
+	 * @param array $column_data Array converted from any one of metaData->columns
+	 * @return mixed An array of the views where the type of visibility are most
+	 * appropriate. A boolean of false if visible is negative for everything.
+	 */
+	private function assignLocked($column_data) {
+		if (isset($column_data['locked'])) {
+			if ($column_data['locked'] === false) {
+				return false;
+			}
+			#This means it is an array and it is not an empty one.
+			if (is_array($column_data['locked']) && isset($column_data['locked'][0])) {
+				return $column_data['locked'];
+			}
+		} else {
+		}
+		return array();
+	}
 }
+
+class BackstageColumnNotFoundException extends BackstageException {}
+class BackstageException extends Exception {}

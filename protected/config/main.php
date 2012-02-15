@@ -29,20 +29,24 @@ return array(
 		'backstage' => array(
 			#'autoloadModels' => false,
 			'models' => array(
-				'User' => false,
 				'Tag' => array(
 					'id' => array(
 						'control' => 'datetime',
 						'visible' => true,
-					)
+					),
 				),
+				'User' => false,
 				'Article' => array(
 					'content' => array(
 						'control' => 'richtext',
 					),
 					'create_by' => array(
 						'control' => 'relation',
-					)
+					),
+					'create_time' => array(
+						'visible' => array('index', 'search'),
+						'locked' => array('update'),
+					),
 				),
 			)
 		),
