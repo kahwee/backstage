@@ -2,6 +2,6 @@
 
 $this->renderPartial('_form', compact(array(
 		'model',
-		'backstage_models',
+		'models_key',
 	)));
 ?>

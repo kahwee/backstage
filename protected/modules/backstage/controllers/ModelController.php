@@ -3,13 +3,13 @@
 class ModelController extends BackstageController {
 
 	public function actionIndex($name=null) {
-		var_dump(Yii::app()->controller->module->models);
+		#var_dump(Yii::app()->controller->module->models);
 		$model = new $name('search');
-		$backstage_models = $this->backstage_models;
+		$models_key = $this->models_key;
 		$this->render('index', compact(array(
 				'model',
 				'name',
-				'backstage_models',
+				'models_key',
 			)));
 	}
 
@@ -22,21 +22,21 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
-		$backstage_models = $this->backstage_models;
+		$models_key = $this->models_key;
 		$this->render('create', compact(array(
 				'model',
 				'name',
-				'backstage_models',
+				'models_key',
 			)));
 	}
 
 	public function actionView($name, $id) {
 		$model = $this->loadModel($name, $id);
-		$backstage_models = $this->backstage_models;
+		$models_key = $this->models_key;
 		$this->render('view', compact(array(
 				'model',
 				'name',
-				'backstage_models',
+				'models_key',
 			)));
 	}
 
@@ -49,11 +49,11 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
-		$backstage_models = $this->backstage_models;
+		$models_key = $this->models_key;
 		$this->render('update', compact(array(
 				'model',
 				'name',
-				'backstage_models',
+				'models_key',
 			)));
 	}
 

@@ -11,7 +11,7 @@ class BackstageController extends Controller {
 	/**
 	 * @var array Names of all models
 	 */
-	public $backstage_models = array();
+	public $models_key = array();
 
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
@@ -27,6 +27,6 @@ class BackstageController extends Controller {
 	 */
 	public function init() {
 		#Legacy, to be removed in future:
-		$this->backstage_models = array_keys(Yii::app()->controller->module->models);
+		$this->models_key = array_keys(Yii::app()->controller->module->models);
 	}
 }

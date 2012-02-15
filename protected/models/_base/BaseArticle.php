@@ -16,6 +16,8 @@
  * @property string $create_by
  * @property string $update_time
  * @property string $update_by
+ * @property string $delete_time
+ * @property integer $delete_by
  *
  * @property User $createBy
  * @property User $updateBy
@@ -42,11 +44,12 @@ abstract class BaseArticle extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('create_time, create_by', 'required'),
+			array('delete_by', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('create_by, update_by', 'length', 'max'=>11),
-			array('content, update_time', 'safe'),
-			array('name, content, update_time, update_by', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, name, content, create_time, create_by, update_time, update_by', 'safe', 'on'=>'search'),
+			array('content, update_time, delete_time', 'safe'),
+			array('name, content, update_time, update_by, delete_time, delete_by', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, name, content, create_time, create_by, update_time, update_by, delete_time, delete_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +75,8 @@ abstract class BaseArticle extends GxActiveRecord {
 			'create_by' => null,
 			'update_time' => Yii::t('app', 'Update Time'),
 			'update_by' => null,
+			'delete_time' => Yii::t('app', 'Delete Time'),
+			'delete_by' => Yii::t('app', 'Delete By'),
 			'createBy' => null,
 			'updateBy' => null,
 			'articleTags' => null,
@@ -88,6 +93,8 @@ abstract class BaseArticle extends GxActiveRecord {
 		$criteria->compare('create_by', $this->create_by);
 		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_by', $this->update_by);
+		$criteria->compare('delete_time', $this->delete_time, true);
+		$criteria->compare('delete_by', $this->delete_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

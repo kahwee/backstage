@@ -1,13 +1,15 @@
 <?php
 $model_name = (isset($_GET['name'])) ? $_GET['name'] : '';
 $action_name = $model->isNewRecord ? 'Create' : 'Update';
+$this_models = $this->module->models[$model_name];
+#echo "<pre>"; var_dump( $this_models ); echo "</pre>"; 
 ?>
 <div class="span2">
 	<div class="sidebar-nav">
 		<ul class="nav nav-list">
 			<li class="nav-header">Models</li>
 			<?php
-			foreach ($backstage_models as $t_model) {
+			foreach ($models_key as $t_model) {
 				$is_active = $model_name == $t_model && $this->id == 'model';
 				echo CHtml::tag('li', array('class' => ($is_active ? 'active' : '' )), CHtml::link($t_model, array('model/index', 'name' => $t_model)));
 			}
@@ -34,30 +36,28 @@ $action_name = $model->isNewRecord ? 'Create' : 'Update';
 
 	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert-message block-message error fade in')); ?>
 	
-	<?php foreach ($model->metaData->columns as $k => $v) {
+	<?php foreach ( $this_models as $name => $attr ) {
 		
-		# Field investigate process
 		if (
-			( !isset($v->autoIncrement) || $v->autoIncrement === false ) &&
-			!field_investigate( $v , 'system' )
+			$attr['visible']
 		) { 
 			?>
-			<div class="form-row control-group <?php echo (is_null($model->getError($k)))?'':'error' ?>">
-				<?php echo $form->labelEx($model,$k); ?>
+			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
+				<?php echo $form->labelEx($model,$name); ?>
 				<div class="controls" >
-					<?php if (field_investigate($v,'richtext')): ?>
-						<?php echo $form->textarea($model,$k); ?>
-					<?php elseIf (field_investigate($v,'password')): ?>
-						<?php echo $form->passwordField($model,$k); ?>
-					<?php elseIf (field_investigate($v,'email')): ?>
+					<?php if ($attr['control']=='richtext'): ?>
+						<?php echo $form->textarea($model,$name); ?>
+					<?php elseIf ($attr['control']=='password'): ?>
+						<?php echo $form->passwordField($model,$name); ?>
+					<?php elseIf ($attr['control']=='email'): ?>
 						<div class="input-prepend">
 							<span class="add-on"><i class="icon-envelope"></i></span>
-							<?php echo $form->textField($model,$k,array('style'=>'width:184px')); ?>
+							<?php echo $form->textField($model,$name,array('style'=>'width:184px')); ?>
 						</div><!-- inputPrepend -->
 					<?php else: ?>
-						<?php echo $form->textField($model,$k); ?>
+						<?php echo $form->textField($model,$name); ?>
 					<?php endif ?>
-					<?php echo $form->error($model,$k); ?>
+					<?php echo $form->error($model,$name); ?>
 				</div>
 			</div><!-- form-row control-group -->
 		<?php } ?>
@@ -74,19 +74,19 @@ $action_name = $model->isNewRecord ? 'Create' : 'Update';
 
 <?php if ($action_name == 'Update'): ?>
 	<div class="well span2">
-		<?php foreach ($model->metaData->columns as $k => $v) {
+		<?php foreach ($this_models as $name => $attr) {
 			
 			# Field investigate process
 			if (
-				( !isset($v->autoIncrement) || $v->autoIncrement === false ) &&
-				field_investigate( $v , 'system' )
+				isset($attr['visible_system']) &&
+				$attr['visible_system']
 			) { 
 				?>
 				<div class="sys-field">
-					<?php echo $form->labelEx($model,$k); ?>
+					<?php echo $form->labelEx($model,$name); ?>
 					<div class="sys-value">
-						<?php if (!empty($model->{$k})): ?>
-							<?php echo $model->{$k}; ?>
+						<?php if (!empty($model->{$name})): ?>
+							<?php echo $model->{$name}; ?>
 						<?php else: ?>
 							-
 						<?php endif ?>
@@ -98,27 +98,6 @@ $action_name = $model->isNewRecord ? 'Create' : 'Update';
 <?php endif ?>
 
 <?php
-
-function field_investigate($field,$switch='system') {
-	$fields_explode = explode('_',$field->name);
-	$fields_last_word = end($fields_explode);
-	switch ($switch) {
-		case 'system':
-			return in_array($fields_last_word,array('by','at','time','sys'));
-		break;
-		case 'richtext';
-			return in_array($fields_last_word,array('richtext','rich','rte'))||$field->dbType=='longtext';
-		break;
-		case 'email':
-			return in_array($fields_last_word,array('email'));
-		break;
-		case 'password';
-			return in_array($fields_last_word,array('password','pwd'));
-		break;
-		default:
-			return false;
-	}
-}
 
 Yii::app()->clientScript->registerCss("modules.backstage.views.model._form.css", <<<CSS
 	form .control-group {margin-bottom: 18px;zoom:1;}
