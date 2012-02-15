@@ -78,8 +78,11 @@ LOCK TABLES `tag` WRITE;
 
 INSERT INTO `tag` (`id`, `name`)
 VALUES
-	(1,'something'),
-	(3,'hiihihi');
+	(1,'design'),
+	(2,'art'),
+	(3,'game'),
+	(4,'book'),
+	(5,'recommendation');
 
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -113,14 +116,18 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`id`, `name`, `email`, `pwd`, `user_status_id`, `user_group_id`, `create_time`, `create_by`, `update_time`, `update_by`)
 VALUES
-	(1,'Alice','alice@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(2,'Bob','bob@mail.com','password',1,1,'2012-02-01 17:45:43',1,NULL,NULL),
-	(3,'Cindy','cindy@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(4,'Daniel','daniel@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(5,'Elixir','elixir@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(6,'Farisal','farisal@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(7,'George','george@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
-	(8,'Henry','henry@mail.com','password',1,1,'2012-02-01 17:44:53',1,NULL,NULL);
+	(1,'Alice','alice@example.com','tc54c2t2',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(2,'Bob','bob@example.com','b764vy65v3y',1,1,'2012-02-01 17:45:43',1,NULL,NULL),
+	(3,'Cindy','cindy@example.com','vy6354cft54',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(4,'Daniel','daniel@example.com','vt542t52',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(5,'Eddie','eddie@example.com','cvt52t54524',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(6,'Fran','fran@example.com','vt524c542',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(7,'George','george@example.com','ct54242vt52',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(8,'Henry','henry@example.com','b8u5uni87m87',1,1,'2012-02-01 17:44:53',1,NULL,NULL),
+	(9,'Isaac','isaac@example.com','p0o8ik75ju',1,1,'2012-02-16 17:44:53',1,NULL,NULL),
+	(10,'Jack','jack@example.com','76h53542ju',1,1,'2012-02-16 17:44:53',1,NULL,NULL),
+	(11,'Kelvin','kelvin@example.com','zrz4334u',1,1,'2012-02-16 17:44:53',1,NULL,NULL),
+	(12,'Lenny','lenny@example.com','ohio3j42ju',1,1,'2012-02-16 17:44:53',1,NULL,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
