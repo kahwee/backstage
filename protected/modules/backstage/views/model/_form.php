@@ -50,6 +50,11 @@ $this_models = $this->module->models[$model_name];
 							<span class="add-on"><i class="icon-envelope"></i></span>
 							<?php echo $form->textField($model,$name,array('style'=>'width:184px')); ?>
 						</div><!-- inputPrepend -->
+					<?php elseIf ($attr['control']=='url'): ?>
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-envelope"></i></span>
+						<?php echo $form->textField($model,$name,array('style'=>'width:184px')); ?>
+					</div><!-- inputPrepend -->
 					<?php else: ?>
 						<?php echo $form->textField($model,$name); ?>
 					<?php endif ?>
