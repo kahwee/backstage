@@ -2,16 +2,22 @@
 
 class ModelController extends BackstageController {
 
+	/**
+	 * Initializes the controller.
+	 * This method is called by the application before the controller starts to execute.
+	 * You may override this method to perform the needed initialization for the controller.
+	 */
+	public function init() {
+	}
+
 	public function actionIndex($name=null) {
 		#var_dump(Yii::app()->controller->module->models);
 		$model = new $name('search');
 		$model->unsetAttributes();
 		if(isset($_GET[$name])) $model->attributes = $_GET[$name];
-		$models_key = $this->models_key;
 		$this->render('index', compact(array(
 				'model',
 				'name',
-				'models_key',
 			)));
 	}
 
@@ -24,21 +30,17 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
-		$models_key = $this->models_key;
 		$this->render('create', compact(array(
 				'model',
 				'name',
-				'models_key',
 			)));
 	}
 
 	public function actionView($name, $id) {
 		$model = $this->loadModel($name, $id);
-		$models_key = $this->models_key;
 		$this->render('view', compact(array(
 				'model',
 				'name',
-				'models_key',
 			)));
 	}
 
@@ -51,11 +53,9 @@ class ModelController extends BackstageController {
 				$this->redirect(array('model/index', 'name' => $name));
 			}
 		}
-		$models_key = $this->models_key;
 		$this->render('update', compact(array(
 				'model',
 				'name',
-				'models_key',
 			)));
 	}
 
@@ -79,17 +79,12 @@ class ModelController extends BackstageController {
 			$model = $this->loadModel($name, $id);
 			$model->delete();
 			if (!isset($_POST['ajax'])) {
-				
+
 				Yii::app()->user->setFlash('success',"Data delete");
 				$this->redirect(array('index'));
 			}
 		} else
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-	}
-
-	public function actionD() {
-		$model_names = $this->k_return_models();
-		print_r($model_names);
 	}
 
 	public function k_return_models() {

@@ -12,6 +12,56 @@ How to make it work
 
 Deploy it by placing it Backstage into `protected/modules/backstage`.
 
+And in your `./protected/config/main.php`, add `backstage` to begin:
+
+```php
+<?php
+return array(
+  'modules' => array(
+  	'backstage' => array(),
+	),
+);
+```
+
+Go to the website http://localhost/index.php?r=backstage to view Backstage.
+
+More advance usage
+------------------
+
+For more advance usage, here is an example.
+
+```php
+<?php
+return array(
+  'modules' => array(
+		'backstage' => array(
+			#'autoloadModels' => false,
+			'models' => array(
+				'Tag' => array(
+					'id' => array(
+						'control' => 'datetime',
+						'visible' => true,
+					),
+				),
+				'User' => false,
+				'Article' => array(
+					'content' => array(
+						'control' => 'richtext',
+					),
+					'create_by' => array(
+						'control' => 'relation',
+					),
+					'create_time' => array(
+						'visible' => array('index', 'search'),
+						'locked' => array('update'),
+					),
+				),
+			)
+		),
+	),
+);
+```
+
 Issues?
 -------
 
