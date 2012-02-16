@@ -9,11 +9,6 @@ class BackstageController extends Controller {
 	public $layout = 'backstage';
 
 	/**
-	 * @var array Names of all models
-	 */
-	public $models_key = array();
-
-	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
 	 * for more details on how to specify this property.
@@ -26,7 +21,5 @@ class BackstageController extends Controller {
 	 * You may override this method to perform the needed initialization for the controller.
 	 */
 	public function init() {
-		#Legacy, to be removed in future:
-		$this->models_key = array_keys(Yii::app()->controller->module->models);
 	}
 }

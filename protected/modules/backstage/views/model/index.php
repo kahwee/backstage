@@ -2,7 +2,7 @@
 	<div class="sidebar-nav">
 		<?php
 		$this->renderPartial('_model_list', compact(array(
-			'model', 'models_key',
+			'model',
 		)));
 		?>
 	</div><!-- sidebar-nav -->

@@ -3,6 +3,12 @@
 class BackstageModule extends CWebModule {
 
 	public $models = array();
+
+	/**
+	 * @var models that are present in the ./protected/models directory
+	 */
+	public $modelsPresent = array();
+
 	var $autoloadModels = true;
 
 	public function init() {
@@ -34,10 +40,14 @@ class BackstageModule extends CWebModule {
 	 * found in options.
 	 */
 	private function buildModelsOptions() {
-		$load_models = array();
 		if ($this->autoloadModels) {
-			$load_models = BackstageHelper::getModels();
-			$this->models = CMap::mergeArray($this->models, $load_models);
+			$this->modelsPresent = BackstageHelper::getModels();
+			$this->models = CMap::mergeArray($this->models, $this->modelsPresent);
+			$undefined_models = array_keys(array_diff_key($this->models, $this->modelsPresent));
+			if (!empty($undefined_models)) {
+				throw new BackstageModelNotFoundException("Model '{$undefined_models[0]}' is not present in ./protected/models but is found in Backstage module's 'models' key. You may need to check your ./protected/config/main.php");
+			}
+
 		}
 	}
 
@@ -142,4 +152,5 @@ class BackstageModule extends CWebModule {
 }
 
 class BackstageColumnNotFoundException extends BackstageException {}
+class BackstageModelNotFoundException extends BackstageException {}
 class BackstageException extends Exception {}

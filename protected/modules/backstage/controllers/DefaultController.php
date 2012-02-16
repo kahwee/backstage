@@ -3,10 +3,9 @@
 class DefaultController extends BackstageController {
 
 	public function actionIndex() {
-		if (count($this->models_key)) {
-			$this->redirect(array('model/index', 'name' => $this->models_key[0]));
-		} else {
-			
+		$models = array_keys(Yii::app()->controller->module->models);
+		if (count($models)) {
+			$this->redirect(array('model/index', 'name' => $models[0]));
 		}
 		Yii::app()->user->setFlash('success', "Data saved!");
 		$this->render('index');
