@@ -1,5 +1,5 @@
-<?php
-$model_name = get_class($model);
+<?php 
+	$model_name = isset($model) ? get_class($model) : '' ;
 ?>
 <ul class="nav nav-list">
 	<li class="nav-header">Models</li>

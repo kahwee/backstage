@@ -19,6 +19,8 @@ class User extends BaseUser {
 	public function attributeLabels() {
 		return array(
 			'pwd' => Yii::t('app', 'Password'),
+			'create_by' => Yii::t('app', 'Created By'),
+			'update_by' => Yii::t('app', 'Updated By'),
 		) + parent::attributeLabels();
 	}
 	

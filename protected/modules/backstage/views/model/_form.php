@@ -1,4 +1,5 @@
 <?php
+$model_id	= (isset($_GET['id']))? $_GET['id'] : false;
 $model_name = (isset($_GET['name'])) ? $_GET['name'] : '';
 $action_name = $model->isNewRecord ? 'Create' : 'Update';
 $this_models = $this->module->models[$model_name];
@@ -14,9 +15,28 @@ $this_models = $this->module->models[$model_name];
 	</div><!-- sidebar-nav -->
 </div>
 <div class="span7">
-
-	<h2 class='pull-left' style='min-width:180px'>Create <?php echo $model_name ?></h2>
-	<?php echo CHtml::link('Back to ' . $model_name . ' List', array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn btn-small pull-left', 'style' => 'margin: 4px 30px;')); ?>
+	<?php if ($model_id): ?>
+		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?> #<?php echo $model_id ?></h2>
+		<div class="btn-group" style="margin: 4px 30px;">
+			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn','id'=>'btn-index')); ?>
+			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled','id'=>'btn-search')); ?>
+			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn active')); ?>
+			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('View'	, array('/backstage/model/view', 'name'=> $model_name, 'id'=>$model_id), array('class' => 'btn')); ?>
+		</div><!-- btn-group -->
+	<?php else: ?>
+		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?></h2>
+		<div class="btn-group" style="margin: 4px 30px;">
+			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn','id'=>'btn-index')); ?>
+			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled','id'=>'btn-search')); ?>
+			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn active')); ?>
+			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('View'	, array('#'), array('class' => 'btn disabled')); ?>
+		</div><!-- btn-group -->
+		
+	<?php endif ?>
 	<div class='clear' style='height:20px;'></div>
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(

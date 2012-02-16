@@ -26,7 +26,7 @@
 					<div class="nav-collapse">
 						<ul class="nav">
 							<li class='active'><a href="/">View Sites</a></li>
-							<li><a href="/backstage/faq">FAQ</a></li>
+							<li><a href="/backstage/default/faq">FAQ</a></li>
 						</ul>
 						<ul class="nav pull-right">
 							<li ><a href="#" >Logout</a></li>

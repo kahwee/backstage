@@ -8,11 +8,17 @@
 	</div><!-- sidebar-nav -->
 </div>
 <div class="span10">
-	<h2 class='pull-left' style='min-width:180px'>Search <?php echo $name; ?></h2>
-	<?php echo CHtml::link('Add New '. $name, array('model/create', 'name' => $name), array('class' => 'btn btn-small btn-primary pull-left','style'=>'margin: 4px 30px;')); ?>
+	<h2 class='pull-left' style='min-width:180px'><?php echo $name; ?></h2>
+	<div class="btn-group" style="margin: 4px 30px;">
+		<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $name), array('class' => 'btn active','id'=>'btn-index')); ?>
+		<?php echo CHtml::link('Search'	, array('#'), array('class' => 'btn','id'=>'btn-search')); ?>
+		<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $name), array('class' => 'btn')); ?>
+		<?php echo CHtml::link('Update'	, array('#'), array('class' => 'btn disabled')); ?>
+		<?php echo CHtml::link('Delete'	, array('#'), array('class' => 'btn disabled')); ?>
+		<?php echo CHtml::link('View'	, array('#'), array('class' => 'btn disabled')); ?>
+	</div><!-- btn-group -->
 	<div class='clear'></div>
 
-	<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 	<div class="search-form" style="display:none">
 		<?php
 		$this->renderPartial('_search', compact(array(
@@ -56,20 +62,30 @@
 	?>
 </div>
 
-<?php
-
-Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
-$('.search-button').click(function() {
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function() {
-	console.log($(this).serialize());
-	$.fn.yiiGridView.update('gridview', {
-		data: $(this).serialize()
+<?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
+$(function(){
+	$('#btn-search').click(function() {
+		$('.search-form').show('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
 	});
-	return false;
+	$('#btn-index').click(function() {
+		$('.search-form').hide('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+	$('.btn.disabled,.btn.active').click(function(e){
+		return false;
+	});
+	$('.search-form form').submit(function() {
+		console.log($(this).serialize());
+		$.fn.yiiGridView.update('gridview', {
+			data: $(this).serialize()
+		});
+		return false;
+	});
 });
 JAVASCRIPT
-);
-?>
+); ?>

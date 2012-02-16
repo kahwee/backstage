@@ -10,5 +10,8 @@ class DefaultController extends BackstageController {
 		Yii::app()->user->setFlash('success', "Data saved!");
 		$this->render('index');
 	}
+	public function actionFaq() {
+		$this->render('faq');
+	}
 
 }
