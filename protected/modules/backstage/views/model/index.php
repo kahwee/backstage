@@ -38,7 +38,6 @@
 				'name' => $column_k,
 			);
 		} else {
-			$belongsToRelationKeys = array_keys($belongsToRelation[0]);
 			$columns[] = array(
 				'name' => $column_k,
 				'type' => 'raw',
@@ -63,7 +62,7 @@
 </div>
 
 <?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
-$(function(){
+jQuery(function($){
 	$('#btn-search').click(function() {
 		$('.search-form').show('slide');
 		$(this).siblings().removeClass('active');
@@ -80,7 +79,6 @@ $(function(){
 		return false;
 	});
 	$('.search-form form').submit(function() {
-		console.log($(this).serialize());
 		$.fn.yiiGridView.update('gridview', {
 			data: $(this).serialize()
 		});
