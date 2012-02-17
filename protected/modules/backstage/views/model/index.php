@@ -48,7 +48,6 @@
 				'name' => $column_k,
 			);
 		} else {
-			$belongsToRelationKeys = array_keys($belongsToRelation[0]);
 			$columns[] = array(
 				'name' => $column_k,
 				'type' => 'raw',
@@ -70,4 +69,35 @@
 		'columns' => $columns,
 	));
 	?>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+<?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
+jQuery(function($){
+	$('#btn-search').click(function() {
+		$('.search-form').show('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+	$('#btn-index').click(function() {
+		$('.search-form').hide('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+	$('.btn.disabled,.btn.active').click(function(e){
+		return false;
+	});
+	$('.search-form form').submit(function() {
+		$.fn.yiiGridView.update('gridview', {
+			data: $(this).serialize()
+		});
+		return false;
+	});
+});
+JAVASCRIPT
+); ?>
+>>>>>>> 3cad6543e8165c060d19938c9d52a10e78defbee
