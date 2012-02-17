@@ -40,7 +40,7 @@ return array(
 					'content' => array(
 						'control' => 'richtext',
 					),
-					'create_by' => array(
+					'update_by' => array(
 						'control' => 'relation',
 					),
 					'create_time' => array(

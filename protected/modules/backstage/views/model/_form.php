@@ -28,7 +28,7 @@ $this_models = $this->module->models[$model_name];
 			</div>
 		<?php } ?>
 	</div><!-- con-alert -->
-	
+
 	<?php if ($model_id): ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?> #<?php echo $model_id ?></h2>
 		<div class="btn-group" style="margin: 4px 30px;">
@@ -49,7 +49,7 @@ $this_models = $this->module->models[$model_name];
 			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
 			<?php echo CHtml::link('View'	, array('#'), array('class' => 'btn disabled')); ?>
 		</div><!-- btn-group -->
-		
+
 	<?php endif ?>
 	<div class='clear' style='height:20px;'></div>
 	<?php
@@ -64,9 +64,9 @@ $this_models = $this->module->models[$model_name];
 		),
 	));?>
 
-	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert-message block-message error fade in')); ?>
-
-	<?php foreach ( $this_models as $name => $attr ) {
+	<?php
+	echo $form->errorSummary($model, null, null, array('class' => 'alert-message block-message error fade in'));
+	foreach ( $this_models as $name => $attr ) {
 
 		if (
 			$attr['visible']
@@ -75,7 +75,7 @@ $this_models = $this->module->models[$model_name];
 			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
 				<?php echo $form->labelEx($model, $name); ?>
 				<div class="controls" >
-					<?php if ($attr['control']=='richtext'): ?>
+					<?php if ($attr['control'] == 'richtext'): ?>
 					<?php
 						Yii::import('backstage.extensions.krichtexteditor.KRichTextEditor');
 						$this->widget('KRichTextEditor', array(
@@ -87,7 +87,6 @@ $this_models = $this->module->models[$model_name];
 								'theme_advanced_statusbar_location' => 'bottom',
 							),
 						));
-
 					?>
 					<?php elseIf ($attr['control']=='password'): ?>
 						<?php echo $form->passwordField($model,$name); ?>

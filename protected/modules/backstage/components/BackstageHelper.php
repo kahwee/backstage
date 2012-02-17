@@ -41,6 +41,8 @@ class BackstageHelper {
 				$link_text = $belongsToModelAttributes['display_name'];
 			} elseif (isset($belongsToModelAttributes['name'])) {
 				$link_text = $belongsToModelAttributes['name'];
+			} elseif (isset($belongsToModelAttributes['title'])) {
+				$link_text = $belongsToModelAttributes['title'];
 			} else {
 				$link_text = $belongsToModelAttributes['id'];
 			}

@@ -5,10 +5,11 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<?php $this->widget('BAlert',array(
-
+	<?php
+	$this->widget('BAlert',array(
 		'content'=>'<p>Fields with <span class="required">*</span> are required.</p>'
-	)); ?>
+	));
+	?>
 
 	<?php echo $form->errorSummary($model); ?>
 

@@ -21,7 +21,14 @@ class BackstageModule extends CWebModule {
 		));
 		#Init models.
 		$this->buildModelsOptions();
+		try {
+
+		} catch (BackstageRelationNotFoundException $e) {
+
+		}
 		$this->buildModelsColumnsOptions();
+		#var_dump($this->models['Article']['create_by']);
+		#var_dump(BackstageHelper::getModelBelongsTo(User::model(), 'create_by'));
 	}
 
 	public function beforeControllerAction($controller, $action) {
@@ -82,7 +89,15 @@ class BackstageModule extends CWebModule {
 	 * @return string The type of control suitable.
 	 */
 	private function assignControl($column_data) {
-		if (isset($column_data['control'])) return $column_data['control'];
+		if (isset($column_data['control'])) {
+			if ($column_data['control'] == 'relation') {
+				$model_belongs_to = BackstageHelper::getModelBelongsTo(User::model(), 'create_by');
+				if (empty($model_belongs_to)) {
+					throw new BackstageRelationNotFoundException;
+				}
+			}
+			return $column_data['control'];
+		}
 		if (BackstageHelper::endsWith($column_data['name'], array('_rich'))) {
 			return 'richtext';
 		}
@@ -151,6 +166,7 @@ class BackstageModule extends CWebModule {
 	}
 }
 
+class BackstageRelationNotFoundException extends BackstageException {}
 class BackstageColumnNotFoundException extends BackstageException {}
 class BackstageModelNotFoundException extends BackstageException {}
 class BackstageException extends Exception {}
