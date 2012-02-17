@@ -1,9 +1,13 @@
 <?php
-$model_id	= (isset($_GET['id']))? $_GET['id'] : false;
-$model_name = (isset($_GET['name'])) ? $_GET['name'] : '';
-$action_name = $model->isNewRecord ? 'Create' : 'Update';
+$model_name = get_class($model);
+if ($model->isNewRecord) {
+	$action_name = 'Create';
+	$model_id = false;
+} else {
+	$action_name = 'Update';
+	$model_id = $model->id;
+}
 $this_models = $this->module->models[$model_name];
-#echo "<pre>"; var_dump( $this_models ); echo "</pre>";
 ?>
 <div class="span2">
 	<div class="sidebar-nav">
