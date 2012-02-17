@@ -19,11 +19,11 @@ class User extends BaseUser {
 	public function attributeLabels() {
 		return array(
 			'pwd' => Yii::t('app', 'Password'),
-			'create_by' => Yii::t('app', 'Created By'),
-			'update_by' => Yii::t('app', 'Updated By'),
+			'create_by' => Yii::t('app', 'User who created'),
+			'update_by' => Yii::t('app', 'User who updated'),
 		) + parent::attributeLabels();
 	}
-	
+
 	public function search() {
 
 		$pagination = new CPagination;
