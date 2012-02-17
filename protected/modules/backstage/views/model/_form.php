@@ -9,7 +9,7 @@ if ($model->isNewRecord) {
 }
 $this_models = $this->module->models[$model_name];
 ?>
-<div class="span2">
+<div class="span2" id='nav-main'>
 	<div class="sidebar-nav">
 		<?php
 		$this->renderPartial('_model_list', compact(array(
@@ -18,12 +18,22 @@ $this_models = $this->module->models[$model_name];
 		?>
 	</div><!-- sidebar-nav -->
 </div>
-<div class="span7">
+<div class="span7" id='con-main'>
+	<div id="con-alert">
+		<?php foreach (Yii::app()->user->getFlashes() as $key => $message) { ?>
+			<div class='alert alert-<?php echo $key?>' style='margin:0 0 10px 0;'>
+			<a class='close'>×</a>
+			<h4 class='alert-heading'><?php echo $key ?></h4>
+			<?php echo $message ?>
+			</div>
+		<?php } ?>
+	</div><!-- con-alert -->
+	
 	<?php if ($model_id): ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?> #<?php echo $model_id ?></h2>
 		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn','id'=>'btn-index')); ?>
-			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled','id'=>'btn-search')); ?>
+			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
 			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn')); ?>
 			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn active')); ?>
 			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
@@ -32,8 +42,8 @@ $this_models = $this->module->models[$model_name];
 	<?php else: ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?></h2>
 		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn','id'=>'btn-index')); ?>
-			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled','id'=>'btn-search')); ?>
+			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
 			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn active')); ?>
 			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn disabled')); ?>
 			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>

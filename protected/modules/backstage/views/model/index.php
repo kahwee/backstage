@@ -1,4 +1,4 @@
-<div class="span2">
+<div class="span2" id='nav-main'>
 	<div class="sidebar-nav">
 		<?php
 		$this->renderPartial('_model_list', compact(array(
@@ -7,7 +7,17 @@
 		?>
 	</div><!-- sidebar-nav -->
 </div>
-<div class="span10">
+<div class="span10" id='con-main'>
+	<div id="con-alert">
+		<?php foreach (Yii::app()->user->getFlashes() as $key => $message) { ?>
+			<div class='alert alert-<?php echo $key?>' style='margin:0 0 10px 0;'>
+			<a class='close'>×</a>
+			<h4 class='alert-heading'><?php echo $key ?></h4>
+			<?php echo $message ?>
+			</div>
+		<?php } ?>
+	</div><!-- con-alert -->
+	
 	<h2 class='pull-left' style='min-width:180px'><?php echo $name; ?></h2>
 	<div class="btn-group" style="margin: 4px 30px;">
 		<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $name), array('class' => 'btn active','id'=>'btn-index')); ?>
@@ -61,31 +71,3 @@
 	));
 	?>
 </div>
-
-<?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
-$(function(){
-	$('#btn-search').click(function() {
-		$('.search-form').show('slide');
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		return false;
-	});
-	$('#btn-index').click(function() {
-		$('.search-form').hide('slide');
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		return false;
-	});
-	$('.btn.disabled,.btn.active').click(function(e){
-		return false;
-	});
-	$('.search-form form').submit(function() {
-		console.log($(this).serialize());
-		$.fn.yiiGridView.update('gridview', {
-			data: $(this).serialize()
-		});
-		return false;
-	});
-});
-JAVASCRIPT
-); ?>

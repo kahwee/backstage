@@ -36,21 +36,7 @@
 				</div>
 			</div>
 		</div>
-		<div class='clear' style='height:60px'></div>
-		<div >
-			<?php
-			foreach (Yii::app()->user->getFlashes() as $key => $message) {
-				if ($key == 'counters') {
-					continue;
-				} //no need next line since 1.1.7
-				echo "<div class='alert alert-{$key}' style='margin:0 20px 20px 20px;'>" .
-				"<a class='close'>×</a>" .
-				"<h4 class='alert-heading'>{$key}</h4>" .
-				"{$message}" .
-				"</div>";
-			}
-			?>
-		</div>
+		<div class='clear' style='height:54px'></div>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<?php echo $content; ?>
@@ -61,14 +47,49 @@
 			</div><!-- footer -->
 		</div>
 <style type="text/css" media="screen">
-.sidebar-nav{
-	background-color:whiteSmoke;
-	min-height:580px;
-	margin-top:-40px; padding-top:40px;
-	margin-left:-20px; padding-left:0px;
-	border-right:1px solid #CCC;
-}
+	div#nav-main{
+		background-color:whiteSmoke;
+		margin-top:-40px; padding-top:40px;
+		margin-left:-20px; padding-left:0px;
+		border-right:1px solid #CCC;
+		height:100%;
+		position:fixed;
+		overflow:auto;
+	}
+	div#con-main{
+		padding-left:14.89361702%;
+	}
 .clear{clear:both;}
 </style>
+<?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
+$(function(){
+	$('#btn-search').click(function() {
+		$('.search-form').show('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+	$('#btn-index').click(function() {
+		$('.search-form').hide('slide');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+	$('.btn.disabled,.btn.active').click(function(e){
+		return false;
+	});
+	$('.close').click(function(e){
+		var target = $( this );
+		target.parent().hide('fade');
+	});
+	$('.search-form form').submit(function() {
+		$.fn.yiiGridView.update('gridview', {
+			data: $(this).serialize()
+		});
+		return false;
+	});
+});
+JAVASCRIPT
+); ?>
 	</body>
 </html>
