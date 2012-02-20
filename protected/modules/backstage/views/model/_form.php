@@ -13,18 +13,18 @@ $this_models = $this->module->models[$model_name];
 	<div class="sidebar-nav">
 		<?php
 		$this->renderPartial('_model_list', compact(array(
-			'model',
-		)));
+				'model',
+			)));
 		?>
 	</div><!-- sidebar-nav -->
 </div>
 <div class="span7" id='con-main'>
 	<div id="con-alert">
 		<?php foreach (Yii::app()->user->getFlashes() as $key => $message) { ?>
-			<div class='alert alert-<?php echo $key?>' style='margin:0 0 10px 0;'>
-			<a class='close'>×</a>
-			<h4 class='alert-heading'><?php echo $key ?></h4>
-			<?php echo $message ?>
+			<div class='alert alert-<?php echo $key ?>' style='margin:0 0 10px 0;'>
+				<a class='close'>×</a>
+				<h4 class='alert-heading'><?php echo $key ?></h4>
+				<?php echo $message ?>
 			</div>
 		<?php } ?>
 	</div><!-- con-alert -->
@@ -32,22 +32,22 @@ $this_models = $this->module->models[$model_name];
 	<?php if ($model_id): ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?> #<?php echo $model_id ?></h2>
 		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn active')); ?>
-			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('View'	, array('/backstage/model/view', 'name'=> $model_name, 'id'=>$model_id), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Index', array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Search', array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('Create', array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Update', array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn active')); ?>
+			<?php echo CHtml::link('Delete', array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('View', array('/backstage/model/view', 'name' => $model_name, 'id' => $model_id), array('class' => 'btn')); ?>
 		</div><!-- btn-group -->
 	<?php else: ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?></h2>
 		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Search'	, array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn active')); ?>
-			<?php echo CHtml::link('Update'	, array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Delete'	, array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('View'	, array('#'), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('Index', array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
+			<?php echo CHtml::link('Search', array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('Create', array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn active')); ?>
+			<?php echo CHtml::link('Update', array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('Delete', array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
+			<?php echo CHtml::link('View', array('#'), array('class' => 'btn disabled')); ?>
 		</div><!-- btn-group -->
 
 	<?php endif ?>
@@ -62,22 +62,23 @@ $this_models = $this->module->models[$model_name];
 			'enctype' => 'multipart/form-data',
 			'validateOnSubmit' => true,
 		),
-	));?>
+		));
+	?>
 
 	<?php
 	echo $form->errorSummary($model, null, null, array('class' => 'alert-message block-message error fade in'));
-	foreach ( $this_models as $name => $attr ) {
+	foreach ($this_models as $name => $attr) {
 
 		if (
 			$attr['visible'] &&
 			!$attr['locked']
 		) {
 			?>
-			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
+			<div class="form-row control-group <?php echo (is_null($model->getError($name))) ? '' : 'error' ?>">
 				<?php echo $form->labelEx($model, $name); ?>
 				<div class="controls" >
-					<?php if ($attr['control'] == 'richtext'): ?>
 					<?php
+					if ($attr['control'] == 'richtext') {
 						Yii::import('backstage.extensions.krichtexteditor.KRichTextEditor');
 						$this->widget('KRichTextEditor', array(
 							'model' => $model,
@@ -88,40 +89,37 @@ $this_models = $this->module->models[$model_name];
 								'theme_advanced_statusbar_location' => 'bottom',
 							),
 						));
-					?>
-					<?php elseif ($attr['control']=='password'): ?>
-						<?php echo $form->passwordField($model,$name); ?>
-					<?php elseif ($attr['control']=='relation'): ?>
-
-					<?php
-					$model_belongs_to = BackstageHelper::findModelBelongsTo($model, $attr['name']);
-					$model_belongs_to_keys = array_keys($model_belongs_to);
-					$model_belongs_to_key = array_shift($model_belongs_to_keys);
-					$related_model = $model_belongs_to[$model_belongs_to_key][1]::model();
-					$display_attribute = BackstageHelper::getDisplayNameAttribute($related_model);
-					$related_list_data = CHtml::listData($related_model::model()->findAll(), BackstageHelper::getPrimaryKey($related_model), $display_attribute);
-					echo $form->dropDownList($model, $name, $related_list_data, array('empty' => ''));
-					?>
-					<?php elseif ($attr['control']=='email'): ?>
+					} elseif ($attr['control'] == 'password') {
+						echo $form->passwordField($model, $name);
+					} elseif ($attr['control'] == 'relation') {
+						$model_belongs_to = BackstageHelper::findModelBelongsTo($model, $attr['name']);
+						$model_belongs_to_keys = array_keys($model_belongs_to);
+						$model_belongs_to_key = array_shift($model_belongs_to_keys);
+						$related_model = $model_belongs_to[$model_belongs_to_key][1]::model();
+						$display_attribute = BackstageHelper::getDisplayNameAttribute($related_model);
+						$related_list_data = CHtml::listData($related_model::model()->findAll(), BackstageHelper::getPrimaryKey($related_model), $display_attribute);
+						echo $form->dropDownList($model, $name, $related_list_data, array('empty' => ''));
+					} elseif ($attr['control'] == 'email') {
+						?>
 						<div class="input-prepend">
 							<span class="add-on"><i class="icon-envelope"></i></span>
-							<?php echo $form->textField($model,$name,array('style'=>'width:184px')); ?>
+							<?php echo $form->textField($model, $name, array('style' => 'width:184px')); ?>
 						</div><!-- inputPrepend -->
-					<?php elseif ($attr['control']=='url'): ?>
-					<div class="input-prepend">
-						<span class="add-on"><i class="icon-envelope"></i></span>
-						<?php echo $form->textField($model,$name,array('style'=>'width:184px')); ?>
-					</div><!-- inputPrepend -->
-					<?php else: ?>
-						<?php echo $form->textField($model,$name); ?>
-					<?php endif ?>
-					<?php echo $form->error($model,$name); ?>
+					<?php } elseif ($attr['control'] == 'url') { ?>
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-envelope"></i></span>
+							<?php echo $form->textField($model, $name, array('style' => 'width:184px')); ?>
+						</div><!-- inputPrepend -->
+						<?php
+					} else {
+						echo $form->textField($model, $name);
+					}
+					echo $form->error($model, $name);
+					?>
 				</div>
 			</div><!-- form-row control-group -->
 		<?php } ?>
 	<?php } ?>
-
-
 
 	<div class="actions">
 		<?php echo CHtml::submitButton($action_name, array('class' => 'btn btn-primary', 'style' => 'margin-bottom: 0;')); ?>
@@ -132,15 +130,15 @@ $this_models = $this->module->models[$model_name];
 
 <?php if ($action_name == 'Update'): ?>
 	<div class="well span2">
-		<?php foreach ($this_models as $name => $attr) {
-
+		<?php
+		foreach ($this_models as $name => $attr) {
 			# Field investigate process
 			if (
 				$attr['locked']
 			) {
 				?>
 				<div class="sys-field">
-					<?php echo $form->labelEx($model,$name); ?>
+					<?php echo $form->labelEx($model, $name); ?>
 					<div class="sys-value">
 						<?php if (!empty($model->{$name})): ?>
 							<?php echo $model->{$name}; ?>
@@ -155,7 +153,6 @@ $this_models = $this->module->models[$model_name];
 <?php endif ?>
 
 <?php
-
 Yii::app()->clientScript->registerCss("modules.backstage.views.model._form.css", <<<CSS
 	form .control-group {margin-bottom: 18px;zoom:1;}
 	form label {padding-top: 6px;font-size: 13px;line-height: 18px;float: left;width: 130px;text-align: right;color: #404040;}
