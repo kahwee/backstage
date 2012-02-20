@@ -69,7 +69,8 @@ $this_models = $this->module->models[$model_name];
 	foreach ( $this_models as $name => $attr ) {
 
 		if (
-			$attr['visible']
+			$attr['visible'] &&
+			!$attr['locked']
 		) {
 			?>
 			<div class="form-row control-group <?php echo (is_null($model->getError($name)))?'':'error' ?>">
@@ -124,8 +125,7 @@ $this_models = $this->module->models[$model_name];
 
 			# Field investigate process
 			if (
-				isset($attr['visible_system']) &&
-				$attr['visible_system']
+				$attr['locked']
 			) {
 				?>
 				<div class="sys-field">

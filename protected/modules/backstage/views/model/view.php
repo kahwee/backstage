@@ -1,5 +1,6 @@
 <?php
-$model_name = (isset($_GET['name'])) ? $_GET['name'] : '';
+$model_name = get_class($model);
+$this_models = $this->module->models[$model_name];
 $model_id = isset($_GET['id']) ? $_GET['id'] : '';
 ?>
 <div class="span2" id='nav-main'>
@@ -34,11 +35,37 @@ $model_id = isset($_GET['id']) ? $_GET['id'] : '';
 	<div class='clear' style='height:20px;'></div>
 
 	<?php
+	$columns = array();
+	foreach ($model->metaData->columns as $column_k => $column_v) {
+		$belongsToRelation = BackstageHelper::getModelBelongsTo($model, $column_k);
+		if (empty($belongsToRelation)) {
+			if($this_models[$column_k]['control']=='datetime'){
+				$columns[] = array(
+					'name' => $column_k,
+					'type' => 'raw',
+					'value'=>(!empty($model->$column_k))?date("M j, Y", strtotime($model->$column_k)):"-",
+				);
+			} else if($this_models[$column_k]['control']=='richtext') {
+				$columns[] = $column_k.':html';
+			} else {
+				$columns[] = array(
+					'name' => $column_k,
+				);
+			}
+		} else {
+			$columns[] = array(
+				'name' => $column_k,
+				'type' => 'raw',
+				'value' => BackstageHelper::getRelatedAttribute($model,$column_k),
+			);
+		}
+	}
 	$this->widget('zii.widgets.CDetailView', array(
 		'data' => $model,
 		'baseScriptUrl' => false,
 		'cssFile' => false,
 		'htmlOptions' => array('class' => 'table table-bordered'),
+		'attributes' => $columns,
 	));
 	?>
 

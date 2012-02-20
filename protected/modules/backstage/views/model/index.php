@@ -1,3 +1,7 @@
+<?php
+$model_name = get_class($model);
+$this_models = $this->module->models[$model_name];
+?>
 <div class="span2" id='nav-main'>
 	<div class="sidebar-nav">
 		<?php
@@ -44,9 +48,18 @@
 	foreach ($model->metaData->columns as $column_k => $column_v) {
 		$belongsToRelation = BackstageHelper::getModelBelongsTo($model, $column_k);
 		if (empty($belongsToRelation)) {
-			$columns[] = array(
-				'name' => $column_k,
-			);
+			if($this_models[$column_k]['control']=='datetime'){
+				$columns[] = array(
+					'name' => $column_k,
+					'value'=>'(!empty($data->'.$column_k.'))?date("M j, Y", strtotime($data->'.$column_k.')):"-"',
+				);
+			} else if($this_models[$column_k]['control']=='richtext') {
+				$columns[] = $column_k.':html';
+			} else {
+				$columns[] = array(
+					'name' => $column_k,
+				);
+			}
 		} else {
 			$columns[] = array(
 				'name' => $column_k,
