@@ -21,7 +21,7 @@ $this_models = $this->module->models[$model_name];
 			</div>
 		<?php } ?>
 	</div><!-- con-alert -->
-	
+
 	<h2 class='pull-left' style='min-width:180px'><?php echo $name; ?></h2>
 	<div class="btn-group" style="margin: 4px 30px;">
 		<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $name), array('class' => 'btn active','id'=>'btn-index')); ?>

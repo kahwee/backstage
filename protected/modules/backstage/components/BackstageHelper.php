@@ -36,7 +36,7 @@ class BackstageHelper {
 		$belongsToRelationKey = array_shift($belongsToRelationKeys);
 		$link_text = null;
 		if (isset($model->$belongsToRelationKey) && $belongsToModel = $model->$belongsToRelationKey->find()) {
-			$belongsToModelAttributes = $belongsToModel->attributes;
+			$belongsToModelAttributes = $model->{$belongsToRelationKey}->attributes;
 			if (isset($belongsToModelAttributes['display_name'])) {
 				$link_text = $belongsToModelAttributes['display_name'];
 			} elseif (isset($belongsToModelAttributes['name'])) {
@@ -50,7 +50,7 @@ class BackstageHelper {
 		if (empty($link_text)) {
 			return $model->{$attribute};
 		} else {
-			return CHtml::link($link_text, array('model/view', 'name' => $belongsToRelation[0][$belongsToRelationKey][1], 'id' => $model->id));
+			return CHtml::link($link_text, array('model/view', 'name' => $belongsToRelation[0][$belongsToRelationKey][1], 'id' => $model->{$belongsToRelationKey}->id));
 		}
 	}
 
