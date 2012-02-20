@@ -31,7 +31,8 @@ class BackstageHelper {
 	 * @return string Link if relation works, plain attribute value if doesn't.
 	 */
 	public static function getRelatedAttribute($model, $attribute) {
-		$belongsToRelationKeys = array_keys(self::findModelBelongsTo($model, $attribute));
+		$belongsToRelation = self::findModelBelongsTo($model, $attribute);
+		$belongsToRelationKeys = array_keys($belongsToRelation);
 		$belongsToRelationKey = array_shift($belongsToRelationKeys);
 
 		$link_text = null;
@@ -50,8 +51,38 @@ class BackstageHelper {
 		if (empty($link_text)) {
 			return $model->{$attribute};
 		} else {
-			return CHtml::link($link_text, array('model/view', 'name' => $belongsToRelation[0][$belongsToRelationKey][1], 'id' => $model->{$belongsToRelationKey}->id));
+			return CHtml::link($link_text, array('model/view', 'name' => $belongsToRelation[$belongsToRelationKey][1], 'id' => $model->{$belongsToRelationKey}->id));
 		}
+	}
+
+	/**
+	 * Gets the most likely display name attribute.
+	 *
+	 * @param object $model Model, instantiated
+	 */
+	public static function getDisplayNameAttribute($model) {
+		$attributes = array_keys($model->attributes);
+		$attribute_names = array('display_name', 'name', 'title');
+		foreach ($attribute_names as $attribute_name) {
+			if ($model->hasAttribute($attribute_name)) {
+				return $attribute_name;
+			}
+		}
+		return self::getPrimaryKey($model);
+	}
+
+	/**
+	 * Gets the primary key of the model
+	 *
+	 * @param object $model Model, instantiated
+	 */
+	public static function getPrimaryKey($model) {
+		$pk = $model->primaryKey();
+		if (is_null($pk)) {
+			$table = $model->getMetaData()->tableSchema;
+			return $table->primaryKey;
+		}
+		return $pk;
 	}
 
 	/**

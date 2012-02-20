@@ -46,7 +46,7 @@ $this_models = $this->module->models[$model_name];
 	Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
 	$columns = array();
 	foreach ($model->metaData->columns as $column_k => $column_v) {
-		$belongsToRelation = BackstageHelper::getModelBelongsTo($model, $column_k);
+		$belongsToRelation = BackstageHelper::findAllModelBelongsTo($model, $column_k);
 		if (empty($belongsToRelation)) {
 			if($this_models[$column_k]['control']=='datetime'){
 				$columns[] = array(

@@ -95,10 +95,12 @@ $this_models = $this->module->models[$model_name];
 
 					<?php
 					$model_belongs_to = BackstageHelper::findModelBelongsTo($model, $attr['name']);
-					print_r($model_belongs_to);
-					exit;
-					$model_belongs_to_obj = $model_belongs_to[1]::model()->findAll();
-					print_r($model_belongs_to_obj);
+					$model_belongs_to_keys = array_keys($model_belongs_to);
+					$model_belongs_to_key = array_shift($model_belongs_to_keys);
+					$related_model = $model_belongs_to[$model_belongs_to_key][1]::model();
+					$display_attribute = BackstageHelper::getDisplayNameAttribute($related_model);
+					$related_list_data = CHtml::listData($related_model::model()->findAll(), BackstageHelper::getPrimaryKey($related_model), $display_attribute);
+					echo $form->dropDownList($model, $name, $related_list_data, array('empty' => ''));
 					?>
 					<?php elseif ($attr['control']=='email'): ?>
 						<div class="input-prepend">
