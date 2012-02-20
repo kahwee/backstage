@@ -31,9 +31,9 @@ class BackstageHelper {
 	 * @return string Link if relation works, plain attribute value if doesn't.
 	 */
 	public static function getRelatedAttribute($model, $attribute) {
-		$belongsToRelation = self::getModelBelongsTo($model, $attribute);
-		$belongsToRelationKeys = array_keys($belongsToRelation[0]);
+		$belongsToRelationKeys = array_keys(self::findModelBelongsTo($model, $attribute));
 		$belongsToRelationKey = array_shift($belongsToRelationKeys);
+
 		$link_text = null;
 		if (isset($model->$belongsToRelationKey) && $belongsToModel = $model->$belongsToRelationKey->find()) {
 			$belongsToModelAttributes = $model->{$belongsToRelationKey}->attributes;
@@ -55,13 +55,13 @@ class BackstageHelper {
 	}
 
 	/**
-	 * Gets the belongsTo array based on the attribute.
+	 * Gets all the belongsTo array based on the attribute.
 	 *
 	 * @param object $model
 	 * @param string $attribute
 	 * @return array
 	 */
-	public static function getModelBelongsTo($model, $attribute=null) {
+	public static function findAllModelBelongsTo($model, $attribute=null) {
 		$out = array();
 		foreach ($model->relations() as $k => $v) {
 			if (isset($v[0]) && $v[0] == 'CBelongsToRelation') {
@@ -73,6 +73,18 @@ class BackstageHelper {
 			}
 		}
 		return $out;
+	}
+
+	/**
+	 * Gets the first belongsTo array based on the attribute.
+	 *
+	 * @param object $model
+	 * @param string $attribute
+	 * @return array
+	 */
+	public static function findModelBelongsTo($model, $attribute=null) {
+		$belongsToRelation = self::findAllModelBelongsTo($model, $attribute);
+		return $belongsToRelation[0];
 	}
 
 	/**

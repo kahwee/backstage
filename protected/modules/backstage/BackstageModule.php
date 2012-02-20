@@ -91,7 +91,7 @@ class BackstageModule extends CWebModule {
 	private function assignControl($column_data) {
 		if (isset($column_data['control'])) {
 			if ($column_data['control'] == 'relation') {
-				$model_belongs_to = BackstageHelper::getModelBelongsTo(User::model(), 'create_by');
+				$model_belongs_to = BackstageHelper::findAllModelBelongsTo(User::model(), 'create_by');
 				if (empty($model_belongs_to)) {
 					throw new BackstageRelationNotFoundException;
 				}

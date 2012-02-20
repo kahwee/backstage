@@ -91,6 +91,15 @@ $this_models = $this->module->models[$model_name];
 					?>
 					<?php elseif ($attr['control']=='password'): ?>
 						<?php echo $form->passwordField($model,$name); ?>
+					<?php elseif ($attr['control']=='relation'): ?>
+
+					<?php
+					$model_belongs_to = BackstageHelper::findModelBelongsTo($model, $attr['name']);
+					print_r($model_belongs_to);
+					exit;
+					$model_belongs_to_obj = $model_belongs_to[1]::model()->findAll();
+					print_r($model_belongs_to_obj);
+					?>
 					<?php elseif ($attr['control']=='email'): ?>
 						<div class="input-prepend">
 							<span class="add-on"><i class="icon-envelope"></i></span>
