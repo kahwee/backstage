@@ -6,38 +6,38 @@ $this_models = $this->module->models[$model_name];
 	<div class="sidebar-nav">
 		<?php
 		$this->renderPartial('_model_list', compact(array(
-			'model',
-		)));
+				'model',
+			)));
 		?>
 	</div><!-- sidebar-nav -->
 </div>
 <div class="span10" id='con-main'>
 	<div id="con-alert">
 		<?php foreach (Yii::app()->user->getFlashes() as $key => $message) { ?>
-			<div class='alert alert-<?php echo $key?>' style='margin:0 0 10px 0;'>
-			<a class='close'>×</a>
-			<h4 class='alert-heading'><?php echo $key ?></h4>
-			<?php echo $message ?>
+			<div class='alert alert-<?php echo $key ?>' style='margin:0 0 10px 0;'>
+				<a class='close'>×</a>
+				<h4 class='alert-heading'><?php echo $key ?></h4>
+				<?php echo $message ?>
 			</div>
 		<?php } ?>
 	</div><!-- con-alert -->
 
 	<h2 class='pull-left' style='min-width:180px'><?php echo $name; ?></h2>
 	<div class="btn-group" style="margin: 4px 30px;">
-		<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $name), array('class' => 'btn active','id'=>'btn-index')); ?>
-		<?php echo CHtml::link('Search'	, array('#'), array('class' => 'btn','id'=>'btn-search')); ?>
-		<?php echo CHtml::link('Create'	, array('/backstage/model/create', 'name' => $name), array('class' => 'btn')); ?>
-		<?php echo CHtml::link('Update'	, array('#'), array('class' => 'btn disabled')); ?>
-		<?php echo CHtml::link('Delete'	, array('#'), array('class' => 'btn disabled')); ?>
-		<?php echo CHtml::link('View'	, array('#'), array('class' => 'btn disabled')); ?>
+		<?php echo CHtml::link('Index', array('/backstage/model/index', 'name' => $name), array('class' => 'btn active', 'id' => 'btn-index')); ?>
+		<?php echo CHtml::link('Search', array('#'), array('class' => 'btn', 'id' => 'btn-search')); ?>
+		<?php echo CHtml::link('Create', array('/backstage/model/create', 'name' => $name), array('class' => 'btn')); ?>
+		<?php echo CHtml::link('Update', array('#'), array('class' => 'btn disabled')); ?>
+		<?php echo CHtml::link('Delete', array('#'), array('class' => 'btn disabled')); ?>
+		<?php echo CHtml::link('View', array('#'), array('class' => 'btn disabled')); ?>
 	</div><!-- btn-group -->
 	<div class='clear'></div>
 
 	<div class="search-form" style="display:none">
 		<?php
 		$this->renderPartial('_search', compact(array(
-			'model',
-		)));
+				'model',
+			)));
 		?>
 	</div><!-- search-form -->
 
@@ -48,13 +48,17 @@ $this_models = $this->module->models[$model_name];
 	foreach ($model->metaData->columns as $column_k => $column_v) {
 		$belongsToRelation = BackstageHelper::findAllModelBelongsTo($model, $column_k);
 		if (empty($belongsToRelation)) {
-			if($this_models[$column_k]['control']=='datetime'){
+			if ($this_models[$column_k]['control'] == 'datetime') {
 				$columns[] = array(
 					'name' => $column_k,
-					'value'=>'(!empty($data->'.$column_k.'))?date("M j, Y", strtotime($data->'.$column_k.')):"-"',
+					'value' => '(!empty($data->' . $column_k . '))?date("M j, Y", strtotime($data->' . $column_k . ')):"-"',
 				);
-			} else if($this_models[$column_k]['control']=='richtext') {
-				$columns[] = $column_k.':html';
+			} else if ($this_models[$column_k]['control'] == 'richtext') {
+				$columns[] = array(
+					'name' => $column_k,
+					'type' => 'raw',
+					'value' => 'BackstageHelper::purifyHtml($data->' . $column_k . ')',
+				);
 			} else {
 				$columns[] = array(
 					'name' => $column_k,

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Helpers that are written specifically for Backstage.
+ */
 class BackstageHelper {
 
 	/**
@@ -21,6 +23,25 @@ class BackstageHelper {
 			}
 		}
 		return $model_names;
+	}
+
+	/**
+	 * CHtmlPurifier removes all malicious code (better known as XSS) with a 
+	 * thoroughly audited, secure yet permissive whitelist. It will also make sure
+	 * the resulting code is standard-compliant. 
+	 * 
+	 * @param string $content Impurity
+	 * @return string The purified content
+	 */
+	public static function purifyHtml($content) {
+		$p = new CHtmlPurifier();
+		$p->options = array('HTML.AllowedElements' => array(
+				'b',
+				'strong',
+				'sub',
+				'sup',
+			));
+		return $p->purify($content);
 	}
 
 	/**
@@ -52,6 +73,7 @@ class BackstageHelper {
 	 * Gets the most likely display name attribute.
 	 *
 	 * @param object $model Model, instantiated
+	 * @return mixed The attribute name. Defaults to primary key name.
 	 */
 	public static function getDisplayNameAttribute($model) {
 		$attributes = array_keys($model->attributes);
@@ -68,6 +90,7 @@ class BackstageHelper {
 	 * Gets the primary key of the model
 	 *
 	 * @param object $model Model, instantiated
+	 * @return mixed The primary key name.
 	 */
 	public static function getPrimaryKey($model) {
 		$pk = $model->primaryKey();

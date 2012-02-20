@@ -89,6 +89,17 @@ $this_models = $this->module->models[$model_name];
 								'theme_advanced_statusbar_location' => 'bottom',
 							),
 						));
+					} elseif ($attr['control'] == 'datetime') {
+						Yii::import('backstage.extensions.kdateselect.KDateSelect');
+						$this->widget('KDateSelect', array(
+							'model' => $model,
+							'value' => $model->isNewRecord ? $model->{$name} : '',
+							'attribute' => $name,
+							'options' => array(
+								'theme_advanced_resizing' => 'true',
+								'theme_advanced_statusbar_location' => 'bottom',
+							),
+						));
 					} elseif ($attr['control'] == 'password') {
 						echo $form->passwordField($model, $name);
 					} elseif ($attr['control'] == 'relation') {
