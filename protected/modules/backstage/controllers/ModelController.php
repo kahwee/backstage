@@ -3,11 +3,68 @@
 class ModelController extends BackstageController {
 
 	/**
+	 * This method is invoked at the beginning of {@link render()}.
+	 * You may override this method to do some preprocessing when rendering a view.
+	 * @param string $view the view to be rendered
+	 * @return boolean whether the view should be rendered.
+	 * @since 1.1.5
+	 */
+	protected function beforeRender($view) {
+		$model_name = Yii::app()->request->getParam('name');
+		$model_id = Yii::app()->request->getParam('id');
+		$this->navBarItems = array(
+			array(
+				'label' => '<i class="icon-th-list icon-white"></i> List',
+				'url' => array('model/index', 'name' => $model_name),
+				'active' => $view == 'index',
+			),
+			array(
+				'label' => '<i class="icon-plus icon-white"></i> New',
+				'url' => array('model/create', 'name' => $model_name),
+				'active' => $view == 'create',
+				'visible' => in_array($view, array('create', 'index')),
+			),
+			array(
+				'label' => '<i class="icon-search icon-white"></i> Search',
+				'url' => '#',
+				'linkOptions' => array('onclick' => 'js:return false;', 'id' => 'btn-search'),
+				'active' => $view == 'create',
+				'visible' => $view == 'index',
+			),
+			array(
+				'label' => '<i class="icon-eye-open icon-white"></i> View',
+				'url' => array('model/view', 'name' => $model_name, 'id' => $model_id),
+				'active' => $view == 'view',
+				'visible' => in_array($view, array('update', 'view', 'delete')),
+			),
+			array(
+				'label' => '<i class="icon-edit icon-white"></i> Update',
+				'url' => array('model/update', 'name' => $model_name, 'id' => $model_id),
+				'active' => $view == 'update',
+				'visible' => in_array($view, array('update', 'view', 'delete')),
+			),
+			array(
+				'label' => '<i class="icon-trash icon-white"></i> Delete',
+				'url' => array('model/delete', 'name' => $model_name, 'id' => $model_id),
+				'active' => $view == 'delete',
+				'visible' => in_array($view, array('update', 'view', 'delete')),
+				'confirm' => 'a',
+				'linkOptions' => array('confirm' => 'Can I delete this?', 'submit' => array('model/delete', 'name' => $model_name, 'id' => $model_id)),
+			),
+		);
+		return true;
+	}
+
+	/**
 	 * Initializes the controller.
 	 * This method is called by the application before the controller starts to execute.
 	 * You may override this method to perform the needed initialization for the controller.
 	 */
 	public function init() {
+	}
+
+	public function buildNavMenu() {
+
 	}
 
 	public function actionIndex($name=null) {

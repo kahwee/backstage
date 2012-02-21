@@ -17,22 +17,30 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-					<a class="brand" href="/backstage"><?php echo CHtml::encode(Yii::app()->name) ?></a>
 					<div class="nav-collapse">
-						<ul class="nav">
-							<li class='active'><a href="/">View Sites</a></li>
-							<li><a href="/backstage/default/faq">FAQ</a></li>
-						</ul>
-						<ul class="nav pull-right">
-							<li ><a href="#" >Logout</a></li>
-						</ul>
+						<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
+						<?php
+						$this->widget('zii.widgets.CMenu', array(
+							'items' => $this->navBarItems,
+							'htmlOptions' => array('class' => 'nav'),
+							'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
+							'encodeLabel' => false,
+						));
+						$this->widget('zii.widgets.CMenu', array(
+							'items' => array(
+								array(
+									'label' => '<i class="icon-home icon-white"></i>',
+									'url' => '/',
+									'active' => $this->id == 'user' && ($this->action->id == 'update'),
+								),
+							),
+							'htmlOptions' => array('class' => 'nav pull-right'),
+							'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
+							'encodeLabel' => false,
+						));
+						?>
 						<p class="navbar-text pull-right">Welcome Admin! </p>
-					</div><!--/.nav-collapse -->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -46,29 +54,42 @@
 				&copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>.
 			</div><!-- footer -->
 		</div>
-<style type="text/css" media="screen">
-	div#nav-main{
-		background-color:whiteSmoke;
-		margin-top:-40px; padding-top:40px;
-		margin-left:-20px; padding-left:0px;
-		border-right:1px solid #CCC;
-		height:100%;
-		position:fixed;
-		overflow:auto;
-	}
-	div#con-main{
-		padding-left:14.89361702%;
-	}
+<?php Yii::app()->clientScript->registerCss('backstage/layout/css', <<<CSS
+a.brand {
+	width: 175px;
+}
+div#nav-main{
+	background-color:whiteSmoke;
+	margin-top:-40px; padding-top:40px;
+	margin-left:-20px; padding-left:0px;
+	border-right:1px solid #CCC;
+	height:100%;
+	position:fixed;
+	overflow:auto;
+}
+div#con-main{
+	padding-left:14.89361702%;
+}
 .clear{clear:both;}
-</style>
+
+ul.nav i {
+	opacity: .5;
+}
+ul.nav a:hover i {
+	opacity: 1;
+}
+CSS
+);
+?>
 <?php Yii::app()->clientScript->registerScript('search', <<<JAVASCRIPT
-$(function(){
-	$('#btn-search').click(function() {
-		$('.search-form').show('slide');
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		return false;
+jQuery(function($) {
+
+	$('#btn-search').click(function(ev) {
+		$('.search-form').slideToggle();
+		$(this).parent('li').toggleClass('active');
+		ev.stopPropagation();
 	});
+
 	$('#btn-index').click(function() {
 		$('.search-form').hide('slide');
 		$(this).siblings().removeClass('active');

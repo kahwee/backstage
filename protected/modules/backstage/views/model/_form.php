@@ -31,24 +31,8 @@ $this_models = $this->module->models[$model_name];
 
 	<?php if ($model_id): ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?> #<?php echo $model_id ?></h2>
-		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index', array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Search', array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Create', array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Update', array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn active')); ?>
-			<?php echo CHtml::link('Delete', array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('View', array('/backstage/model/view', 'name' => $model_name, 'id' => $model_id), array('class' => 'btn')); ?>
-		</div><!-- btn-group -->
 	<?php else: ?>
 		<h2 class='pull-left' style='min-width:180px'><?php echo $model_name ?></h2>
-		<div class="btn-group" style="margin: 4px 30px;">
-			<?php echo CHtml::link('Index', array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
-			<?php echo CHtml::link('Search', array('/backstage/model/index'), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Create', array('/backstage/model/create', 'name' => $model_name), array('class' => 'btn active')); ?>
-			<?php echo CHtml::link('Update', array('/backstage/model/update', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('Delete', array('/backstage/model/delete', 'name' => $model_name), array('class' => 'btn disabled')); ?>
-			<?php echo CHtml::link('View', array('#'), array('class' => 'btn disabled')); ?>
-		</div><!-- btn-group -->
 
 	<?php endif ?>
 	<div class='clear' style='height:20px;'></div>

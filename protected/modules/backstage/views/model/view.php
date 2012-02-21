@@ -22,7 +22,7 @@ $model_id = isset($_GET['id']) ? $_GET['id'] : '';
 			</div>
 		<?php } ?>
 	</div><!-- con-alert -->
-	
+
 	<h2 class='pull-left' style='min-width:180px'><?php echo $name; ?> #<?php echo $model_id ?></h2>
 	<div class="btn-group" style="margin: 4px 30px;">
 		<?php echo CHtml::link('Index'	, array('/backstage/model/index', 'name' => $model_name), array('class' => 'btn')); ?>
@@ -37,7 +37,7 @@ $model_id = isset($_GET['id']) ? $_GET['id'] : '';
 	<?php
 	$columns = array();
 	foreach ($model->metaData->columns as $column_k => $column_v) {
-		$belongsToRelation = BackstageHelper::getModelBelongsTo($model, $column_k);
+		$belongsToRelation = BackstageHelper::findAllModelBelongsTo($model, $column_k);
 		if (empty($belongsToRelation)) {
 			if($this_models[$column_k]['control']=='datetime'){
 				$columns[] = array(
