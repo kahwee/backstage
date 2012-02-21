@@ -26,7 +26,8 @@ return array(
 				'ext.bootstrap-theme.gii',
 			),
 		),
-		'backstage' => array(
+		'backstage2' => array(
+			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
 			'models' => array(
 				'Tag' => array(

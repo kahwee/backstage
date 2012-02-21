@@ -12,11 +12,11 @@ class BackstageModule extends CWebModule {
 	var $autoloadModels = true;
 
 	public function init() {
+		Yii::setPathOfAlias('backstage', $this->getBasePath());
 		$this->setImport(array(
-			'backstage.models.*',
+			'application.models.*',
 			'backstage.components.*',
 		));
-		Yii::setPathOfAlias('backstage', $this->getBasePath());
 		#Init models.
 		$this->buildModelsOptions();
 		try {

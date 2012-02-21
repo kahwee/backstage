@@ -1,7 +1,9 @@
-<h1 >Instruction</h1>
+<h1>Instructions</h1>
 <?php
+var_dump(Yii::app()->modules);
+exit;
 	$label = '<button class="bt3">Link to Back Stage</button>';
-	$rurl= array('/backstage');
+	$rurl= array('/backstage2');
 	$htmlOption = array();
-	echo CHtml::link($label,$rurl,$htmlOption);
+	echo CHtml::link('Go to Backstage', $rurl,$htmlOption);
 ?>
