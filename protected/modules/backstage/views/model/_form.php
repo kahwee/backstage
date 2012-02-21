@@ -94,11 +94,10 @@ $this_models = $this->module->models[$model_name];
 						$this->widget('KDateSelect', array(
 							'model' => $model,
 							'value' => $model->isNewRecord ? $model->{$name} : '',
+							'startDate' => '-3 years',
+							'endDate' => '+4 years',
+							'reverseYears' => true,
 							'attribute' => $name,
-							'options' => array(
-								'theme_advanced_resizing' => 'true',
-								'theme_advanced_statusbar_location' => 'bottom',
-							),
 						));
 					} elseif ($attr['control'] == 'password') {
 						echo $form->passwordField($model, $name);

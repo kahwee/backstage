@@ -55,9 +55,13 @@ $this_models = $this->module->models[$model_name];
 				);
 			} else if ($this_models[$column_k]['control'] == 'richtext') {
 				$columns[] = array(
+					'class' => 'backstage.extensions.kcolumns.KHtmlPurifierColumn',
 					'name' => $column_k,
-					'type' => 'raw',
-					'value' => 'BackstageHelper::purifyHtml($data->' . $column_k . ')',
+					'options' => array(
+						'HTML.AllowedElements' => array('i', 'em', 'strong', 'b', 'sup', 'sub'),
+						'HTML.AllowedAttributes' => array(),
+					),
+					'truncate_length' => 250,
 				);
 			} else {
 				$columns[] = array(
@@ -80,7 +84,6 @@ $this_models = $this->module->models[$model_name];
 	);
 	$this->widget('BootGridView', array(
 		'id' => 'gridview',
-		'htmlOptions' => array('class' => 'table-striped'),
 		'dataProvider' => $model->search(),
 		'template' => '<!--{summary}-->{items} {pager}',
 		'columns' => $columns,

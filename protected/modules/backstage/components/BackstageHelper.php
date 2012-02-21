@@ -26,25 +26,6 @@ class BackstageHelper {
 	}
 
 	/**
-	 * CHtmlPurifier removes all malicious code (better known as XSS) with a 
-	 * thoroughly audited, secure yet permissive whitelist. It will also make sure
-	 * the resulting code is standard-compliant. 
-	 * 
-	 * @param string $content Impurity
-	 * @return string The purified content
-	 */
-	public static function purifyHtml($content) {
-		$p = new CHtmlPurifier();
-		$p->options = array('HTML.AllowedElements' => array(
-				'b',
-				'strong',
-				'sub',
-				'sup',
-			));
-		return $p->purify($content);
-	}
-
-	/**
 	 * Gets the related attributes for BelongsTo relation.
 	 *
 	 * @param object $model Model, if in CGridView column, this will be $data.
