@@ -21,7 +21,7 @@
 						<div class="span2" style='position:fixed'>
 							<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
 						</div><!-- span2 -->
-						<div class='span10' style='padding-left: 14.89361702%; margin-left:-10px'>
+						<div class='span10' style='padding-left: 14.89361702%; margin-left:-14px'>
 							<?php
 							$this->widget('zii.widgets.CMenu', array(
 								'items' => $this->navBarItems,
