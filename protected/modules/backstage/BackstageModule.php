@@ -85,32 +85,36 @@ class BackstageModule extends CWebModule {
 	 * @return string The type of control suitable.
 	 */
 	private function assignControl($column_data) {
+		$model_belongs_to = BackstageHelper::findAllModelBelongsTo(User::model(), $column_data['name']);
 		if (isset($column_data['control'])) {
-			if ($column_data['control'] == 'relation') {
-				$model_belongs_to = BackstageHelper::findAllModelBelongsTo(User::model(), 'create_by');
-				if (empty($model_belongs_to)) {
-					throw new BackstageRelationNotFoundException;
-				}
+			#defined control
+			if ($column_data['control'] == 'relation' && empty($model_belongs_to)) {
+				throw new BackstageRelationNotFoundException;
 			}
 			return $column_data['control'];
-		}
-		if (BackstageHelper::endsWith($column_data['name'], array('_rich'))) {
-			return 'richtext';
-		}
-		if (BackstageHelper::endsWith($column_data['name'], array('_url', '_uri'))) {
-			return 'url';
-		}
-		if (strcasecmp($column_data['name'], 'email') === 0) {
-			return 'email';
-		}
-		if (strcasecmp($column_data['dbType'], 'text') === 0) {
-			return 'textarea';
-		}
-		if (strcasecmp($column_data['dbType'], 'datetime') === 0) {
-			return 'datetime';
-		}
-		if (strcasecmp($column_data['dbType'], 'date') === 0) {
-			return 'date';
+		} else {
+			#auto discover
+			if (!empty($model_belongs_to)) {
+				return 'relation';
+			}
+			if (BackstageHelper::endsWith($column_data['name'], array('_rich'))) {
+				return 'richtext';
+			}
+			if (BackstageHelper::endsWith($column_data['name'], array('_url', '_uri'))) {
+				return 'url';
+			}
+			if (strcasecmp($column_data['name'], 'email') === 0) {
+				return 'email';
+			}
+			if (strcasecmp($column_data['dbType'], 'text') === 0) {
+				return 'textarea';
+			}
+			if (strcasecmp($column_data['dbType'], 'datetime') === 0) {
+				return 'datetime';
+			}
+			if (strcasecmp($column_data['dbType'], 'date') === 0) {
+				return 'date';
+			}
 		}
 		return 'textfield';
 	}
