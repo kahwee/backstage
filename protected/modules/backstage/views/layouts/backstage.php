@@ -19,27 +19,29 @@
 				<div class="container-fluid">
 					<div class="nav-collapse">
 						<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand span2')); ?>
-						<?php
-						$this->widget('zii.widgets.CMenu', array(
-							'items' => $this->navBarItems,
-							'htmlOptions' => array('class' => 'nav'),
-							'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
-							'encodeLabel' => false,
-						));
-						$this->widget('zii.widgets.CMenu', array(
-							'items' => array(
-								array(
-									'label' => '<i class="icon-home icon-white"></i>',
-									'url' => '/',
-									'active' => $this->id == 'user' && ($this->action->id == 'update'),
+						<div style='padding-left:14.89361702%'>
+							<?php
+							$this->widget('zii.widgets.CMenu', array(
+								'items' => $this->navBarItems,
+								'htmlOptions' => array('class' => 'nav'),
+								'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
+								'encodeLabel' => false,
+							));
+							$this->widget('zii.widgets.CMenu', array(
+								'items' => array(
+									array(
+										'label' => '<i class="icon-home icon-white"></i>',
+										'url' => '/',
+										'active' => $this->id == 'user' && ($this->action->id == 'update'),
+									),
 								),
-							),
-							'htmlOptions' => array('class' => 'nav pull-right'),
-							'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
-							'encodeLabel' => false,
-						));
-						?>
-						<p class="navbar-text pull-right">Welcome Admin! </p>
+								'htmlOptions' => array('class' => 'nav pull-right'),
+								'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
+								'encodeLabel' => false,
+							));
+							?>
+							<p class="navbar-text pull-right">Welcome Admin! </p>
+						</div>
 					</div>
 				</div>
 			</div>
