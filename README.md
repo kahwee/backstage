@@ -35,6 +35,7 @@ For more advance usage, here is an example.
 return array(
   'modules' => array(
 		'backstage' => array(
+			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
 			'models' => array(
 				'Tag' => array(
