@@ -21,7 +21,7 @@
 						<div class="span2" style='position:fixed'>
 							<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
 						</div><!-- span2 -->
-						<div class='span10' style='padding-left:14.89361702%;margin-left:-10px'>
+						<div class='span10' style='padding-left: 14.89361702%; margin-left:-10px'>
 							<?php
 							$this->widget('zii.widgets.CMenu', array(
 								'items' => $this->navBarItems,
@@ -29,7 +29,7 @@
 								'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
 								'encodeLabel' => false,
 							));?>
-							
+
 							<ul class='nav pull-right'>
 								<li >
 									<a href="/" > <span style='padding:0 10px'>View Site</span> <i class="icon-home icon-white"></i></a>
