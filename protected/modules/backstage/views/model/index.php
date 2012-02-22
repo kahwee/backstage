@@ -34,7 +34,7 @@ $this_models = $this->module->models[$model_name];
 	</div><!-- search-form -->
 
 	<?php
-	Yii::import('backstage.extensions.bootstrap.widgets.BootGridView');
+	Yii::import('zii.widgets.grid.CGridView');
 	Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
 	$columns = array();
 	foreach ($model->metaData->columns as $column_k => $column_v) {
@@ -70,12 +70,16 @@ $this_models = $this->module->models[$model_name];
 	}
 	$columns[] = array(
 		'class' => 'BootButtonColumn',
+		'viewButtonIconCssClass' => 'icon-eye-open',
 		'viewButtonUrl' => 'Yii::app()->controller->createUrl("model/view", array("name" => "' . $name . '", "id" => $data->id))',
 		'updateButtonUrl' => 'Yii::app()->controller->createUrl("model/update", array("name" => "' . $name . '", "id" => $data->id))',
 		'deleteButtonUrl' => 'Yii::app()->controller->createUrl("model/delete", array("name" => "' . $name . '", "id" => $data->id))',
 	);
-	$this->widget('BootGridView', array(
+	$this->widget('CGridView', array(
 		'id' => 'gridview',
+		'itemsCssClass' => 'table',
+		'pagerCssClass' => 'pagination',
+		'pager' => array('class' => 'backstage.extensions.bootstrap.widgets.BootPager'),
 		'dataProvider' => $model->search(),
 		'template' => '<!--{summary}-->{items} {pager}',
 		'columns' => $columns,

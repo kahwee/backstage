@@ -4,7 +4,7 @@ Yii::import('zii.widgets.grid.CButtonColumn');
 
 class BootButtonColumn extends CButtonColumn
 {
-	public $viewButtonIconCssClass = 'icon-search';
+	public $viewButtonIconCssClass = 'icon-eye-open';
 	public $updateButtonIconCssClass = 'icon-pencil';
 	public $deleteButtonIconCssClass = 'icon-trash';
 
