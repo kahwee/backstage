@@ -109,7 +109,9 @@ class KHtmlPurifierColumn extends CDataColumn {
 		$output2 = (count($tags = array_reverse($tags)) ? '</' . implode('></', $tags) . '>' : '');
 
 		// Find last space or HTML tag (solving problem with last space in HTML tag eg. <span class="new">)
-		$pos = (int) end(end(preg_split('/<.*>| /', $output, -1, PREG_SPLIT_OFFSET_CAPTURE)));
+		$pos_tmp = preg_split('/<.*>| /', $output, -1, PREG_SPLIT_OFFSET_CAPTURE);
+		$pos_tmp = end($pos_tmp);
+		$pos = (int) end($pos_tmp);
 		// Append closing tags to output
 		$output.=$output2;
 

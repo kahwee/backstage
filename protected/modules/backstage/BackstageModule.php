@@ -25,8 +25,6 @@ class BackstageModule extends CWebModule {
 
 		}
 		$this->buildModelsColumnsOptions();
-		#var_dump($this->models['Article']['create_by']);
-		#var_dump(BackstageHelper::getModelBelongsTo(User::model(), 'create_by'));
 	}
 
 	public function beforeControllerAction($controller, $action) {

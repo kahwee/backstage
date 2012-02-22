@@ -26,7 +26,7 @@ return array(
 				'ext.bootstrap-theme.gii',
 			),
 		),
-		'admin' => array(
+		'backstage' => array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
 			'models' => array(

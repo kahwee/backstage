@@ -68,7 +68,6 @@ class ModelController extends BackstageController {
 	}
 
 	public function actionIndex($name=null) {
-		#var_dump(Yii::app()->controller->module->models);
 		$model = new $name('search');
 		$model->unsetAttributes();
 		if(isset($_GET[$name])) $model->attributes = $_GET[$name];
