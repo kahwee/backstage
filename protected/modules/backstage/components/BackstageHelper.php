@@ -40,7 +40,7 @@ class BackstageHelper {
 		$link_text = null;
 		if (isset($model->$belongsToRelationKey) && $belongsToModel = $model->$belongsToRelationKey->find()) {
 			$belongsToModelAttributes = $model->{$belongsToRelationKey}->attributes;
-			$display_name = self::getDisplayNameAttribute($model);
+			$display_name = self::getDisplayNameAttribute($model->{$belongsToRelationKey});
 			$link_text = $belongsToModelAttributes[$display_name];
 		}
 		if (empty($link_text)) {
