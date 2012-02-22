@@ -17,31 +17,25 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<div class="nav-collapse">
-						<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand span2')); ?>
-						<div style='padding-left:14.89361702%'>
+					<div class="nav-collapse row-fluid">
+						<div class="span2" style='position:fixed'>
+							<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
+						</div><!-- span2 -->
+						<div class='span10' style='padding-left:14.89361702%;margin-left:-10px'>
 							<?php
 							$this->widget('zii.widgets.CMenu', array(
 								'items' => $this->navBarItems,
 								'htmlOptions' => array('class' => 'nav'),
 								'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
 								'encodeLabel' => false,
-							));
-							$this->widget('zii.widgets.CMenu', array(
-								'items' => array(
-									array(
-										'label' => '<i class="icon-home icon-white"></i>',
-										'url' => '/',
-										'active' => $this->id == 'user' && ($this->action->id == 'update'),
-									),
-								),
-								'htmlOptions' => array('class' => 'nav pull-right'),
-								'submenuHtmlOptions' => array('class' => 'dropdown-menu'),
-								'encodeLabel' => false,
-							));
-							?>
-							<p class="navbar-text pull-right">Welcome Admin! </p>
-						</div>
+							));?>
+							
+							<ul class='nav pull-right'>
+								<li >
+									<a href="/" > <span style='padding:0 10px'>View Site</span> <i class="icon-home icon-white"></i></a>
+								</li>
+							</ul>
+						</div><!-- span10 -->
 					</div>
 				</div>
 			</div>
@@ -71,10 +65,10 @@ div#con-main{
 }
 .clear{clear:both;}
 
-ul.nav i {
+div.navbar i.icon-white {
 	opacity: .5;
 }
-ul.nav a:hover i {
+div.navbar a:hover i.icon-white {
 	opacity: 1;
 }
 CSS
