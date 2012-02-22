@@ -38,7 +38,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by BackStage. All Rights Reserved.
+		Copyright &copy; <?php echo date('Y'); ?> by Backstage. All Rights Reserved.
 	</div><!-- footer -->
 
 </div><!-- page -->

@@ -1,9 +1,10 @@
 <h1>Instructions</h1>
 <?php
-var_dump(Yii::app()->modules);
-exit;
-	$label = '<button class="bt3">Link to Back Stage</button>';
-	$rurl= array('/backstage2');
-	$htmlOption = array();
-	echo CHtml::link('Go to Backstage', $rurl,$htmlOption);
+$backstage_path = "";
+foreach (Yii::app()->modules as $k => $v) {
+	if (strpos($v['class'], 'BackstageModule') > 0) {
+		$backstage_path = $k;
+	}
+}
+echo CHtml::link('Go to Backstage', array("/$backstage_path"));
 ?>
