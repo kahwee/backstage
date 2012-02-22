@@ -61,6 +61,7 @@ class BackstageModule extends CWebModule {
 	private function buildModelsColumnsOptions() {
 		foreach ($this->models as $model_k => &$model_v) {
 			if ($model_v !== false) {
+				$model = $model_k::model();
 				$loaded_columns = $model_k::model()->metaData->columns;
 				#Check if the column is not defined.
 				$undefined_columns = array_keys(array_diff_key($model_v, $loaded_columns));
@@ -70,9 +71,9 @@ class BackstageModule extends CWebModule {
 				#Converted to array as it is more consistent with options.
 				$model_v = CMap::mergeArray(array_map('get_object_vars', $loaded_columns), $model_v);
 				foreach ($model_v as $column_k => &$column_v) {
-					$column_v['control'] = $this->assignControl($column_v);
-					$column_v['visible'] = $this->assignVisible($column_v);
-					$column_v['locked'] = $this->assignLocked($column_v);
+					$column_v['control'] = $this->assignControl($model, $column_v);
+					$column_v['visible'] = $this->assignVisible($model, $column_v);
+					$column_v['locked'] = $this->assignLocked($model, $column_v);
 				}
 			}
 		}
@@ -81,11 +82,12 @@ class BackstageModule extends CWebModule {
 	/**
 	 * With the column data, discover the most suited HTML control to use.
 	 *
+	 * @param object $model model itself
 	 * @param array $column_data Array converted from any one of metaData->columns
 	 * @return string The type of control suitable.
 	 */
-	private function assignControl($column_data) {
-		$model_belongs_to = BackstageHelper::findAllModelBelongsTo(User::model(), $column_data['name']);
+	private function assignControl($model, $column_data) {
+		$model_belongs_to = BackstageHelper::findAllModelBelongsTo($model, $column_data['name']);
 		if (isset($column_data['control'])) {
 			#defined control
 			if ($column_data['control'] == 'relation' && empty($model_belongs_to)) {
@@ -122,11 +124,12 @@ class BackstageModule extends CWebModule {
 	/**
 	 * With the column data, discover the most suited visibility to use.
 	 *
+	 * @param object $model model itself
 	 * @param array $column_data Array converted from any one of metaData->columns
 	 * @return mixed An array of the views where the type of visibility are most
 	 * appropriate. A boolean of false if visible is negative for everything.
 	 */
-	private function assignVisible($column_data) {
+	private function assignVisible($model, $column_data) {
 		if (isset($column_data['visible'])) {
 			if ($column_data['visible'] === false) {
 				return false;
@@ -147,11 +150,12 @@ class BackstageModule extends CWebModule {
 	 * With the column data, discover if the item should be locked and be place
 	 * in the sidebar.
 	 *
+	 * @param object $model model itself
 	 * @param array $column_data Array converted from any one of metaData->columns
 	 * @return mixed An array of the views where the type of visibility are most
 	 * appropriate. A boolean of false if visible is negative for everything.
 	 */
-	private function assignLocked($column_data) {
+	private function assignLocked($model, $column_data) {
 		if (isset($column_data['locked'])) {
 			if ($column_data['locked'] === false) {
 				return false;
