@@ -18,7 +18,7 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<div class="nav-collapse">
-						<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
+						<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand span2')); ?>
 						<?php
 						$this->widget('zii.widgets.CMenu', array(
 							'items' => $this->navBarItems,
@@ -55,9 +55,6 @@
 			</div><!-- footer -->
 		</div>
 <?php Yii::app()->clientScript->registerCss('backstage/layout/css', <<<CSS
-a.brand {
-	width: 175px;
-}
 div#nav-main{
 	background-color:whiteSmoke;
 	margin-top:-40px; padding-top:40px;
