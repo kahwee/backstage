@@ -73,6 +73,8 @@ $this_models = $this->module->models[$model_name];
 								'theme_advanced_statusbar_location' => 'bottom',
 							),
 						));
+					} elseif ($attr['control'] == 'textarea') {
+						echo $form->textarea($model, $name);
 					} elseif ($attr['control'] == 'datetime') {
 						Yii::import('backstage.extensions.kdateselect.KDateSelect');
 						$this->widget('KDateSelect', array(
