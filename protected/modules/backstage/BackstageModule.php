@@ -132,7 +132,7 @@ class BackstageModule extends CWebModule {
 	private function assignVisible($model, $column_data) {
 		if (isset($column_data['visible'])) {
 			if ($column_data['visible'] === false) {
-				return false;
+				return array();
 			}
 			#This means it is an array and it is not an empty one.
 			if (is_array($column_data['visible']) && isset($column_data['visible'][0])) {
@@ -141,7 +141,7 @@ class BackstageModule extends CWebModule {
 		} else {
 			#What to do when there is no indication. Guess?
 			#Since autoincrement, don't show.
-			if (isset($column_data['autoIncrement']) && $column_data['autoIncrement'] === true) return false;
+			if (isset($column_data['autoIncrement']) && $column_data['autoIncrement'] === true) return array();
 		}
 		return array('index', 'view', 'search', 'create', 'update');
 	}
@@ -158,7 +158,7 @@ class BackstageModule extends CWebModule {
 	private function assignLocked($model, $column_data) {
 		if (isset($column_data['locked'])) {
 			if ($column_data['locked'] === false) {
-				return false;
+				return array();
 			}
 			#This means it is an array and it is not an empty one.
 			if (is_array($column_data['locked']) && isset($column_data['locked'][0])) {

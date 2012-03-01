@@ -37,35 +37,38 @@ $this_models = $this->module->models[$model_name];
 	Yii::import('zii.widgets.grid.CGridView');
 	Yii::import('backstage.extensions.bootstrap.widgets.BootButtonColumn');
 	$columns = array();
-	foreach ($model->metaData->columns as $column_k => $column_v) {
-		$belongsToRelation = BackstageHelper::findAllModelBelongsTo($model, $column_k);
-		if (empty($belongsToRelation)) {
-			if ($this_models[$column_k]['control'] == 'datetime') {
-				$columns[] = array(
-					'name' => $column_k,
-					'value' => '(!empty($data->' . $column_k . '))?date("M j, Y", strtotime($data->' . $column_k . ')):"-"',
-				);
-			} else if ($this_models[$column_k]['control'] == 'richtext') {
-				$columns[] = array(
-					'class' => 'backstage.extensions.kcolumns.KHtmlPurifierColumn',
-					'name' => $column_k,
-					'options' => array(
-						'HTML.AllowedElements' => array('i', 'em', 'strong', 'b', 'sup', 'sub'),
-						'HTML.AllowedAttributes' => array(),
-					),
-					'truncate_length' => 250,
-				);
+	foreach ($this_models as $column_k => $column_v) {
+		if (in_array('index', $column_v['visible'])) {
+			$belongsToRelation = BackstageHelper::findAllModelBelongsTo($model, $column_k);
+			if (empty($belongsToRelation)) {
+				if ($column_v['control'] == 'datetime') {
+					$columns[] = array(
+						'name' => $column_k,
+						'value' => '(!empty($data->' . $column_k . '))?date("M j, Y", strtotime($data->' . $column_k . ')):"-"',
+					);
+				} else if ($column_v['control'] == 'richtext') {
+					$columns[] = array(
+						'class' => 'backstage.extensions.kcolumns.KHtmlPurifierColumn',
+						'name' => $column_k,
+						'options' => array(
+							'HTML.AllowedElements' => array('i', 'em', 'strong', 'b', 'sup', 'sub'),
+							'HTML.AllowedAttributes' => array(),
+						),
+						'truncate_length' => 250,
+					);
+				} else {
+					$columns[] = array(
+						'name' => $column_k,
+						'type' => 'raw',
+					);
+				}
 			} else {
 				$columns[] = array(
 					'name' => $column_k,
+					'type' => 'raw',
+					'value' => 'BackstageHelper::getRelatedAttribute($data, "' . $column_k . '")',
 				);
 			}
-		} else {
-			$columns[] = array(
-				'name' => $column_k,
-				'type' => 'raw',
-				'value' => 'BackstageHelper::getRelatedAttribute($data, "' . $column_k . '")',
-			);
 		}
 	}
 	$columns[] = array(
