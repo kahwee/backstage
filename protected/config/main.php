@@ -29,6 +29,7 @@ return array(
 		'backstage' => array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
+			'name' => 'Backstage 2',
 			'models' => array(
 				'Tag' => array(
 					'id' => array(

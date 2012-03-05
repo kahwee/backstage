@@ -19,7 +19,7 @@
 				<div class="container-fluid">
 					<div class="nav-collapse row-fluid">
 						<div class="span2" style='position:fixed'>
-							<?php echo CHtml::link(Yii::app()->name, array('default/index'), array('class' => 'brand')); ?>
+							<?php echo CHtml::link($this->module->name, array('default/index'), array('class' => 'brand')); ?>
 						</div><!-- span2 -->
 						<div class='span10' style='padding-left: 14.89361702%; margin-left:-14px'>
 							<?php
