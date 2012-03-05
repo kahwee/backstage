@@ -47,7 +47,7 @@
 			</div>
 			<div id="footer" style='text-align:center;font-size:8pt;color:#777'>
 				<div class="clear"></div>
-				&copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>.
+				&copy; <?php echo date('Y'); ?> <?php echo $this->module->copyright_name; ?>.
 			</div><!-- footer -->
 		</div>
 <?php Yii::app()->clientScript->registerCss('backstage/layout/css', <<<CSS

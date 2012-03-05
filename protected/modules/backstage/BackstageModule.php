@@ -4,6 +4,7 @@ class BackstageModule extends CWebModule {
 
 	public $models = array();
 	public $name = null;
+	public $copyright_name = null;
 
 	/**
 	 * @var models that are present in the ./protected/models directory
@@ -21,6 +22,10 @@ class BackstageModule extends CWebModule {
 		#Set the name of Backstage, defaults the name of the Yii application.
 		if (is_null($this->name)) {
 			$this->name = Yii::app()->name;
+		}
+		#Set the organizational name copyright of Backstage, defaults the name of the Yii application.
+		if (is_null($this->copyright_name)) {
+			$this->copyright_name = Yii::app()->name;
 		}
 		#Init models.
 		$this->buildModelsOptions();

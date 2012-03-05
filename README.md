@@ -38,6 +38,7 @@ return array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
 			'name' => 'Backstage',
+			'copyright_name' => 'Backstage, Inc.'
 			'models' => array(
 				'Tag' => array(
 					'id' => array(
