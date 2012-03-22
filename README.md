@@ -44,6 +44,7 @@ return array(
 					'id' => array(
 						'control' => 'datetime',
 						'visible' => true,
+						'format'=>'M j, Y g:i A',
 					),
 				),
 				'User' => false,

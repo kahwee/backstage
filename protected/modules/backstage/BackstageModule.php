@@ -91,6 +91,7 @@ class BackstageModule extends CWebModule {
 					$column_v['control'] = $this->assignControl($model, $column_v);
 					$column_v['visible'] = $this->assignVisible($model, $column_v);
 					$column_v['locked'] = $this->assignLocked($model, $column_v);
+					$column_v['format'] = $this->assignFormat($model, $column_v);
 				}
 			}
 		}
@@ -184,6 +185,17 @@ class BackstageModule extends CWebModule {
 		} else {
 		}
 		return array();
+	}
+
+	/**
+	 * With the column data, discover if the datetime format to use
+	 *
+	 * @param object $model model itself
+	 * @param array $column_data Array converted from any one of metaData->columns
+	 * @return php datetime format string
+	 */
+	private function assignFormat($model, $column_data) {
+		return ( isset( $column_data['format'] ) ) ? $column_data['format']: 'M j, Y';
 	}
 }
 

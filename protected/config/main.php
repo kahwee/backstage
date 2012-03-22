@@ -35,6 +35,7 @@ return array(
 				'Tag' => array(
 					'id' => array(
 						'control' => 'datetime',
+						'format'=>'M j, Y g:i A',
 						'visible' => true,
 					),
 				),
