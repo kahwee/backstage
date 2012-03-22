@@ -30,6 +30,7 @@ return array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
 			'name' => 'Backstage 2',
+			'login_required' => true, // with support of CWebUser
 			'copyright_name' => 'Backstage, Inc.',
 			'models' => array(
 				'Tag' => array(

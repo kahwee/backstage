@@ -37,7 +37,7 @@ return array(
 		'backstage' => array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
-			#'login_url' => '/site/login', // with support of CWebUser
+			#'login_required' => true, // with support of CWebUser
 			'name' => 'Backstage',
 			'copyright_name' => 'Backstage, Inc.'
 			'models' => array(
@@ -45,7 +45,7 @@ return array(
 					'id' => array(
 						'control' => 'datetime',
 						'visible' => true,
-						'format'=>'M j, Y g:i A',
+						'format' => 'M j, Y g:i A',
 					),
 				),
 				'User' => false,
