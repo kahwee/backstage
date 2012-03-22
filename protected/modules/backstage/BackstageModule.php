@@ -5,6 +5,7 @@ class BackstageModule extends CWebModule {
 	public $models = array();
 	public $name = null;
 	public $copyright_name = null;
+	public $login_url = false;
 
 	/**
 	 * @var models that are present in the ./protected/models directory
@@ -14,6 +15,12 @@ class BackstageModule extends CWebModule {
 	var $autoloadModels = true;
 
 	public function init() {
+		
+		# if login url isset
+		if( $this->login_url && Yii::app()->user->isGuest ){
+			Yii::app()->request->redirect($login_url);
+		}
+		
 		Yii::setPathOfAlias('backstage', $this->getBasePath());
 		$this->setImport(array(
 			'application.models.*',
