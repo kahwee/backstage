@@ -37,6 +37,7 @@ return array(
 		'backstage' => array(
 			'class' => 'application.modules.backstage.BackstageModule',
 			#'autoloadModels' => false,
+			#'login_url' => '/site/login', // with support of CWebUser
 			'name' => 'Backstage',
 			'copyright_name' => 'Backstage, Inc.'
 			'models' => array(
