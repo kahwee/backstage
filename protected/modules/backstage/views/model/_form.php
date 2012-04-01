@@ -85,6 +85,8 @@ $this_models = $this->module->models[$model_name];
 							'reverseYears' => true,
 							'attribute' => $name,
 						));
+					} elseif ($attr['control'] == 'file') {
+						echo $form->fileField($model, $name);
 					} elseif ($attr['control'] == 'password') {
 						echo $form->passwordField($model, $name);
 					} elseif ($attr['control'] == 'relation') {

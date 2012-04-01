@@ -83,11 +83,14 @@ class BackstageModule extends CWebModule {
 				#Check if the column is not defined.
 				$undefined_columns = array_keys(array_diff_key($model_v, $loaded_columns));
 				if (!empty($undefined_columns)) {
-					throw new BackstageColumnNotFoundException("Column '{$undefined_columns[0]}' is not defined in model {$model_k} but is found in Backstage module's 'models' key. You may need to check your ./protected/config/main.php");
+					#throw new BackstageColumnNotFoundException("Column '{$undefined_columns[0]}' is not defined in model {$model_k} but is found in Backstage module's 'models' key. You may need to check your ./protected/config/main.php");
 				}
 				#Converted to array as it is more consistent with options.
 				$model_v = CMap::mergeArray(array_map('get_object_vars', $loaded_columns), $model_v);
 				foreach ($model_v as $column_k => &$column_v) {
+					if (!isset($column_v['name'])) {
+						$column_v['name'] = $column_k;
+					}
 					$column_v['control'] = $this->assignControl($model, $column_v);
 					$column_v['visible'] = $this->assignVisible($model, $column_v);
 					$column_v['locked'] = $this->assignLocked($model, $column_v);
